@@ -187,7 +187,20 @@
         .events-table th { padding: 14px 16px; text-align: left; font-weight: 500; font-size: 0.9rem; }
         .events-table td { padding: 12px 16px; font-size: 0.9rem; border-bottom: 1px solid var(--owasp-border); vertical-align: top; }
         .events-table tbody tr:hover { background: #f0f4f8; }
-        .events-table .year-row td { background: var(--owasp-dark); color: #fff; font-weight: 700; font-size: 1rem; padding: 10px 16px; }
+        .events-table .year-row td {
+            background: var(--owasp-dark); color: #fff; font-weight: 700; font-size: 1rem;
+            padding: 10px 16px; cursor: pointer; user-select: none;
+            transition: background 0.2s;
+        }
+        .events-table .year-row td:hover { background: #1a2530; }
+        .events-table .year-row td::after {
+            content: '\25BC';
+            float: right;
+            font-size: 0.75rem;
+            transition: transform 0.2s;
+        }
+        .events-table .year-row.collapsed td::after { transform: rotate(-90deg); }
+        .events-table tr.event-hidden { display: none; }
 
         .badge {
             display: inline-block; padding: 3px 10px; border-radius: 12px;
@@ -502,7 +515,7 @@
             </thead>
             <tbody>
                 <!-- 2025 -->
-                <tr class="year-row"><td colspan="4">2025</td></tr>
+                <tr class="year-row" data-year="2025" onclick="toggleYear(this)"><td colspan="4">2025</td></tr>
                 <tr>
                     <td>10.12.2025</td>
                     <td><a href="./assets/presentations/202512%20-%20OWASP%20Top%2010%202025%20by%20Miglen%20Evlogiev.pdf">OWASP Top 10:2025</a></td>
@@ -595,7 +608,7 @@
                 </tr>
 
                 <!-- 2024 -->
-                <tr class="year-row"><td colspan="4">2024</td></tr>
+                <tr class="year-row collapsed" data-year="2024" onclick="toggleYear(this)"><td colspan="4">2024</td></tr>
                 <tr>
                     <td>13.12.2024</td>
                     <td><a href="./assets/presentations/202412%20-%20OWASP%20Top%2010%20attacks%20&%20defenses%20by%20Nikolay%20Dimitrov.pdf">OWASP Top 10 attacks &amp; defenses</a></td>
@@ -622,7 +635,7 @@
                 </tr>
 
                 <!-- 2022 -->
-                <tr class="year-row"><td colspan="4">2022</td></tr>
+                <tr class="year-row collapsed" data-year="2022" onclick="toggleYear(this)"><td colspan="4">2022</td></tr>
                 <tr>
                     <td>28.06.2022</td>
                     <td>Why hackers love Javascript?</td>
@@ -631,7 +644,7 @@
                 </tr>
 
                 <!-- 2021 -->
-                <tr class="year-row"><td colspan="4">2021</td></tr>
+                <tr class="year-row collapsed" data-year="2021" onclick="toggleYear(this)"><td colspan="4">2021</td></tr>
                 <tr>
                     <td>31.07.2021</td>
                     <td><a href="https://speakerdeck.com/owaspsofia/owasp-sofia-dan-cornell-appsec-fast-and-slow-your-devsecops-ci-cd-pipeline-isnt-an-ssa-program-july-27th-2021" target="_blank" rel="noopener">AppSec Fast and Slow: Your DevSecOps CI/CD Pipeline Isn't an SSA Program</a></td>
@@ -664,7 +677,7 @@
                 </tr>
 
                 <!-- 2019 -->
-                <tr class="year-row"><td colspan="4">2019</td></tr>
+                <tr class="year-row collapsed" data-year="2019" onclick="toggleYear(this)"><td colspan="4">2019</td></tr>
                 <tr>
                     <td>27.06.2019</td>
                     <td><a href="https://speakerdeck.com/owaspsofia/owasp-sofia-atanas-pashov-pros-n-cons-of-penetration-testing-june-27th-2019" target="_blank" rel="noopener">Pros &amp; Cons of Penetration Testing</a></td>
@@ -1081,5 +1094,27 @@
     </div>
 </footer>
 
+<script>
+    // Collapsible year groups in events table
+    function toggleYear(row) {
+        row.classList.toggle('collapsed');
+        let next = row.nextElementSibling;
+        while (next && !next.classList.contains('year-row')) {
+            next.classList.toggle('event-hidden');
+            next = next.nextElementSibling;
+        }
+    }
+
+    // On load: hide rows belonging to already-collapsed years
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('tr.year-row.collapsed').forEach(function (row) {
+            let next = row.nextElementSibling;
+            while (next && !next.classList.contains('year-row')) {
+                next.classList.add('event-hidden');
+                next = next.nextElementSibling;
+            }
+        });
+    });
+</script>
 </body>
 </html>
