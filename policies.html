@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWASP Sofia | Правила и очаквания</title>
+    <meta name="description" content="OWASP Sofia — правила и очаквания за домакини, лектори, спонсори и участници. Кодекс на поведение, брандинг и програма.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://umami.miglen.com/script.js" data-website-id="82faab38-3cc8-4d91-af9a-f6213b3c3287"></script>
+</head>
+<body>
+
+<!-- SVG sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="icon-linkedin" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </symbol>
+    <symbol id="icon-facebook" viewBox="0 0 24 24">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </symbol>
+    <symbol id="icon-discord" viewBox="0 0 24 24">
+        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+    </symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24">
+        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm2 4h5v5H7v-5z"/>
+    </symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24">
+        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+    </symbol>
+    <symbol id="icon-email" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+    </symbol>
+    <symbol id="icon-web" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+    </symbol>
+    <symbol id="icon-github" viewBox="0 0 24 24">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </symbol>
+    <symbol id="icon-slack" viewBox="0 0 24 24">
+        <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+    </symbol>
+</svg>
+
+<!-- ===== Header ===== -->
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo-area">
+            <img src="https://owasp.org/assets/images/logo.png" alt="OWASP лого">
+        </a>
+        <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </button>
+        <nav>
+            <a href="index.html#за-нас"><svg><use href="#icon-info"/></svg>За нас</a>
+            <a href="index.html#събития"><svg><use href="#icon-calendar"/></svg>Събития</a>
+            <a href="index.html#ресурси"><svg><use href="#icon-book"/></svg>Ресурси</a>
+            <a href="index.html#top10"><svg><use href="#icon-shield"/></svg>Top 10</a>
+            <a href="index.html#екип"><svg><use href="#icon-users"/></svg>Екип</a>
+            <a href="index.html#контакти"><svg><use href="#icon-mail"/></svg>Контакти</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== Page Hero ===== -->
+<section class="page-hero">
+    <div class="container">
+        <div class="breadcrumb"><a href="index.html">OWASP Sofia</a> &nbsp;/&nbsp; Правила и очаквания</div>
+        <h1>Правила и очаквания</h1>
+        <p>
+            Тази страница описва как организираме срещите на OWASP Sofia и какво очакваме от партньорите си:
+            домакини, лектори, спонсори и участници. Следваме политиките на OWASP Foundation и прилагаме
+            няколко локални допълнения, които отразяват как реално работим в София.
+        </p>
+    </div>
+</section>
+
+<!-- ===== Content ===== -->
+<div class="container">
+    <div class="content-layout">
+        <aside class="toc">
+            <div class="toc-title">Съдържание</div>
+            <ul>
+                <li><a href="#code-of-conduct">Кодекс на поведение</a></li>
+                <li><a href="#hosting">Домакинство</a></li>
+                <li><a href="#presenting">Презентации</a></li>
+                <li><a href="#branding">Брандинг</a></li>
+                <li><a href="#schedule">Програма</a></li>
+            </ul>
+        </aside>
+
+        <article>
+            <p>
+                Цялата официална документация на OWASP е публикувана на
+                <a href="https://policy.owasp.org/" target="_blank" rel="noopener">policy.owasp.org</a>.
+                Където цитираме конкретно правило, посочваме директна връзка към оригинала, така че можете
+                да го прочетете в пълнота.
+            </p>
+
+            <h2 id="code-of-conduct">1. Кодекс на поведение</h2>
+            <p>
+                OWASP Sofia спазва <a href="https://policy.owasp.org/operational/code-of-conduct" target="_blank" rel="noopener">Кодекса на поведение на OWASP Foundation</a>,
+                приет от Борда на 25 септември 2024 г. Участието в което и да е наше събитие, включително в хибридни
+                и онлайн формати, означава, че приемате тези правила.
+            </p>
+            <p>Накратко, очакваме от всеки участник, независимо дали е лектор, домакин, спонсор или слушател:</p>
+            <ul>
+                <li>Да се отнася към другите с уважение и достойнство, без значение от пол, идентичност, ориентация, увреждане, физически вид, произход, раса, възраст или религия.</li>
+                <li>Да не участва в каквато и да е форма на тормоз: вербални нападки, преследване, нежелан физически контакт, неуместно фотографиране или запис, системно прекъсване на доклади, нежелано внимание от сексуален характер.</li>
+                <li>Да спазва приложимото законодателство, включително правилата за защита на интелектуална собственост, авторско право и регулации като GDPR.</li>
+                <li>Да не вреди на репутацията на колеги, работодатели или на самата общност на OWASP.</li>
+                <li>Да избягва конфликти на интереси и да не използва участието си в OWASP за лични или комерсиални облаги, които не са оповестени предварително.</li>
+                <li>Да признава авторство, да цитира коректно и да не представя чужда работа като своя.</li>
+            </ul>
+            <p>
+                OWASP има отделна <a href="https://policy.owasp.org/operational/conferences-events" target="_blank" rel="noopener">политика за поведение на конференции и събития</a>
+                с по-конкретни anti-harassment разпоредби, която прилагаме в пълна сила. Участници, които откажат
+                да прекратят такова поведение след предупреждение, се отстраняват от събитието без право на достъп до бъдещи.
+            </p>
+            <p>
+                Ако станете свидетел на нарушение или сте засегнати от такова, моля свържете се с някой от водещите
+                на чаптъра по време на събитието или на нашия имейл след това. Сигналите се обработват дискретно.
+                При по-сериозни случаи се прилага <a href="https://policy.owasp.org/operational/whistleblower" target="_blank" rel="noopener">Whistleblower &amp; Anti-Retaliation Policy</a> на OWASP Foundation.
+            </p>
+
+            <h2 id="hosting">2. Домакинство</h2>
+            <p>
+                Ако вашата организация иска да бъде домакин на среща на OWASP Sofia, благодарим ви предварително.
+                Без местни домакини общността просто не би съществувала в този мащаб. В замяна на това, което
+                осигурявате като пространство и логистика, получавате достъп до техническа аудитория от практици
+                в областта на сигурността: разработчици, AppSec инженери, пентестъри, архитекти, CISO-и, студенти.
+            </p>
+
+            <h3>Какво очакваме от домакина</h3>
+            <ul>
+                <li><strong>Капацитет.</strong> Зала за между 50 и 100 души с места за сядане. По преценка приемаме и по-малко в зависимост от темата, но 50 е практичният минимум, който позволява нормално meetup изживяване. Над 100 става по-сложно за модериране на Q&amp;A и нетуъркинг.</li>
+                <li><strong>Оборудване.</strong> Прожектор или голям екран, HDMI и USB-C свързаност, микрофон ако залата е по-голяма от 60 души, стабилен Wi-Fi за лекторите и участниците.</li>
+                <li><strong>Достъпност.</strong> Помещението да е достъпно с градски транспорт и за хора с ограничена подвижност, доколкото това е възможно за сградата ви. Ако има ограничения, кажете ни предварително, за да го отбележим в анонса.</li>
+                <li><strong>Регистрация на входа.</strong> Място за рецепция или маса, където да настаним списъка с участници и баджове, ако има такива.</li>
+                <li><strong>Кафе пауза или почерпка.</strong> Не е задължително, но е силно оценено. Малък кетъринг (вода, кафе, лек снакс или пица) подобрява изживяването и общуването след докладите. Това се счита за бартерно спонсорство по <a href="https://policy.owasp.org/operational/chapters" target="_blank" rel="noopener">Chapters Policy</a>, което е изрично разрешено от OWASP.</li>
+                <li><strong>Запис и стрийминг.</strong> По избор. Ако имате техника и оператор, чудесно. Ако не, ще се справим със собствено оборудване.</li>
+            </ul>
+
+            <h3>Какво получавате вие като домакин</h3>
+            <ul>
+                <li>Видимост в комуникацията преди и по време на събитието: лого на началния слайд, споменаване в постовете в LinkedIn и социалните мрежи, благодарност от подиума.</li>
+                <li>Споменаване на страницата на чаптъра в owasp.org.</li>
+                <li>Възможност да изпратите кратко (до 5 минути) представяне в началото на събитието за работодателското си предложение, текущи отворени позиции, технологичния стек, който ползвате. Това не е продаване на услуги или продукти, а представяне на компанията като технологична среда. Кандидатите в залата трябва да разберат с кого си имат работа.</li>
+                <li>Достъп до общността като рекрутер и партньор за бъдещи инициативи.</li>
+            </ul>
+
+            <h3>Какво не правим</h3>
+            <p>
+                OWASP е vendor-neutral организация и това не е поза, а част от мисията.
+                <a href="https://policy.owasp.org/operational/branding" target="_blank" rel="noopener">Branding Guidelines</a> и
+                <a href="https://policy.owasp.org/operational/mark-usage-guidelines" target="_blank" rel="noopener">Word Mark Usage Guidelines</a>
+                на OWASP изрично забраняват използването на марката за внушаване, че OWASP препоръчва, одобрява или поддържа конкретен продукт или услуга. На практика това означава:
+            </p>
+            <ul>
+                <li>Залата на meetup-а не е място за агресивна промоция на продукти, SaaS платформи, обучителни курсове или услуги на домакина или на негови партньори.</li>
+                <li>Раздаването на маркетингови материали и sales разговори вървят в <strong>отделна обозначена зона</strong> (фоайе, рецепция, отделна маса), не от подиума.</li>
+                <li>Брандингът на домакина не може да измества или прикрива OWASP брандинга в основните визуали на събитието.</li>
+                <li>Името и логото на OWASP не могат да бъдат използвани в самостоятелни маркетингови материали на домакина без отделно писмено разрешение от OWASP Foundation.</li>
+            </ul>
+            <p>
+                Това не са произволни ограничения. Аудиторията идва, защото знае, че няма да гледа 90 минути sales presentation,
+                и това е причината общността да расте. Ако някоя тема ви тежи в това отношение, говорете с нас предварително.
+                Винаги намираме формат, който работи и за двете страни.
+            </p>
+
+            <h2 id="presenting">3. Презентации</h2>
+            <p>
+                Ако искате да изнесете доклад на OWASP Sofia, ще се радваме. Имаме рулинг CFP и приемаме предложения
+                целогодишно. Изпратете заглавие, кратко описание (3-5 изречения), bio и приблизителна продължителност
+                през <a href="https://forms.gle/1XCeTUD3yrdQehu56" target="_blank" rel="noopener">формата за лектори</a>.
+            </p>
+
+            <h3>Какво очакваме от съдържанието</h3>
+            <ul>
+                <li><strong>Технически фокус.</strong> Application security, DevSecOps, cloud security, threat modeling, secure coding, reverse engineering, red team или blue team практики, AI security, supply chain, container и Kubernetes security, identity, криптография, инциденти и lessons learned. Темите трябва да са свързани с практическата страна на сигурността на софтуера и системите.</li>
+                <li><strong>Дълбочина.</strong> Аудиторията е техническа. Очакваме демонстрации, реален код, конфигурации, архитектурни диаграми, payload-и, PoC-и или конкретни данни от продукция. Slide deck с дефиниции на основни термини и пет bullet point-а за &bdquo;best practices&ldquo; няма да мине.</li>
+                <li><strong>Оригинално съдържание.</strong> Презентации, които вече сте показвали на други събития, са приемливи, стига да са релевантни и да не са преразказване на чужди материали без авторство. Ако ползвате чужди ресурси, цитирайте ги.</li>
+                <li><strong>Време.</strong> Стандартният слот е 25-35 минути плюс 5-10 минути за въпроси. По-дълги формати са възможни за workshop сесии, но се обсъждат отделно.</li>
+            </ul>
+
+            <h3>Какво не приемаме</h3>
+            <ul>
+                <li><strong>Маркетингови презентации.</strong> Доклад, в който логото на компанията се появява на всеки слайд, продуктът се позиционира като решение на всеки проблем и завършвате с QR код за demo заявка, не е технически доклад. Това важи и за безплатни инструменти и open source проекти, които промотирате. Фокусът трябва да е върху проблема и подхода, не върху самия инструмент.</li>
+                <li><strong>Generic awareness съдържание.</strong> &bdquo;Защо сигурността е важна&ldquo;, &bdquo;10-те най-чести грешки в паролите&ldquo;, обобщения на OWASP Top 10 без нов ъгъл, въведения в GDPR. Има си място за това, но не на нашия meetup.</li>
+                <li><strong>Чисто мениджърски или governance доклади</strong> без техническа стойност. Compliance е валидна тема, но трябва да има конкретика зад слайдовете: примери от одити, технически контроли, autonate-вани проверки.</li>
+                <li><strong>Sponsored content.</strong> Дори когато спонсор иска да изпрати свой лектор, очакванията към доклада са същите. Това е принципно положение, изрично уредено в <a href="https://policy.owasp.org/operational/events" target="_blank" rel="noopener">Events Policy</a> на OWASP, секцията за избор на лектори чрез blind review.</li>
+            </ul>
+
+            <h3>Какво осигуряваме на лекторите</h3>
+            <ul>
+                <li>Подготвителен разговор преди събитието, ако желаете, за синхронизация на очаквания за дълбочина, време и аудитория.</li>
+                <li>Презентационен темплейт с брандинг на OWASP Sofia (вижте следващата секция).</li>
+                <li>Тех-проба преди старта на събитието.</li>
+                <li>Запис на доклада, ако сте съгласни. Видеата качваме в YouTube канала на чаптъра в рамките на няколко седмици, <a href="https://policy.owasp.org/operational/events" target="_blank" rel="noopener">съгласно препоръката на OWASP за event recordings</a>.</li>
+                <li>Промоция на доклада ви през каналите ни преди и след събитието.</li>
+            </ul>
+            <p>
+                Лекторите на по-формални събития подписват
+                <a href="https://policy.owasp.org/legal/speaker-agreement" target="_blank" rel="noopener">Speaker Agreement</a>
+                на OWASP Foundation. За редовни чаптър срещи това не е задължително, но правилата за съдържание са същите.
+            </p>
+
+            <h2 id="branding">4. Брандинг</h2>
+            <p>
+                Цялото използване на името OWASP, логото и марките е регулирано от
+                <a href="https://policy.owasp.org/operational/branding" target="_blank" rel="noopener">Branding Guidelines</a> и
+                <a href="https://policy.owasp.org/operational/mark-usage-guidelines" target="_blank" rel="noopener">OWASP Word Mark Usage Guidelines</a>
+                на OWASP Foundation. Накратко.
+            </p>
+
+            <h3>Какво може да се ползва</h3>
+            <ul>
+                <li>Логото на OWASP в одобрените цветове (черно, бяло, синьо RGB, синьо CMYK), в комбинация с wordmark или само като символ. Файловете са достъпни през <a href="https://drive.google.com/drive/folders/1eBf-yDvyCSMcLaWlC9xBwf7SGUBjIRAL" target="_blank" rel="noopener">OWASP Brand Guidelines 2024 на Google Drive</a>.</li>
+                <li>Името &bdquo;OWASP Sofia&ldquo; или &bdquo;OWASP София&ldquo; за обозначение на нашите събития и комуникация.</li>
+                <li>Споменаване, че събитието е &bdquo;hosted by OWASP Sofia&ldquo; или &bdquo;in collaboration with OWASP Sofia&ldquo; в маркетингови материали, стига това да отговаря на реалността и да не подсказва партньорство, което не съществува.</li>
+                <li>Стандартните типографии: <strong>Poppins</strong> за заглавия, <strong>Barlow</strong> за основен текст, <strong>Montserrat Alternates</strong> като приблизителен заместител на логотипа.</li>
+            </ul>
+
+            <h3>Какво не може</h3>
+            <ul>
+                <li>Промяна на логото: смяна на пропорциите, ъгъла на осата, цветовете, кръг към квадрат, нестандартни илюстрации на осата. Логото се ползва точно както е предоставено от OWASP Foundation.</li>
+                <li>Включване на &bdquo;OWASP&ldquo; в име на компания, продукт, домейн или услуга. Според <a href="https://policy.owasp.org/operational/mark-usage-guidelines" target="_blank" rel="noopener">Word Mark Usage Guidelines</a>, точка 3.3, марката се ползва само като прилагателно (&bdquo;OWASP Top Ten list&ldquo;), не като съществително, глагол или притежателна форма.</li>
+                <li>Използване на брандинга, за да се внушава, че OWASP препоръчва или одобрява даден продукт, услуга или обучение. Това е изрично забранено и е една от най-сериозните червени линии.</li>
+                <li>Поставяне на OWASP логото като фон, watermark или повтарящ се елемент в дизайн на собствени маркетингови материали (по точка 3.2.h от Word Mark Usage Guidelines).</li>
+                <li>Използване в собствени банери, ролъпи, билбордове извън контекста на одобрено OWASP събитие без предварително разрешение от Foundation.</li>
+            </ul>
+
+            <h3>Презентационни темплейти</h3>
+            <p>
+                Предоставяме на лекторите готов <strong>OWASP Sofia presentation template</strong> (Google Slides и Keynote),
+                който включва коректните цветове, лого, типографии и trademark обозначения. Молим ви да го ползвате. Ако имате
+                причина да не го направите (например изключително специфичен слайдов формат за live demo), използвайте предоставения
+                от OWASP <a href="https://drive.google.com/drive/folders/1eBf-yDvyCSMcLaWlC9xBwf7SGUBjIRAL" target="_blank" rel="noopener">combined logo and wordmark</a>
+                и спазвайте brand guidelines.
+            </p>
+
+            <h3>Statement of Non-Endorsement</h3>
+            <p>
+                Когато презентация или материал реферира външни продукти, услуги или инструменти, добавяме следния стандартен текст
+                (<a href="https://policy.owasp.org/operational/branding" target="_blank" rel="noopener">source</a>):
+            </p>
+            <blockquote>
+                The Open Worldwide Application Security Project (OWASP) is a 501(c)(3) worldwide not-for-profit charitable organization
+                focused on improving the security of software. OWASP does not endorse or recommend any product or service. This allows
+                our community to remain vendor neutral with the collective wisdom of the best minds in software security worldwide.
+            </blockquote>
+
+            <h2 id="schedule">5. Програма</h2>
+            <p>
+                Стандартният формат на едно meetup събитие на OWASP Sofia изглежда така, както е описано по-долу.
+                Това е насока, не закон. Финалната програма зависи от темите, броя лектори и спецификата на залата.
+            </p>
+
+            <h3>Типичен агенда блок</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Час (пример)</th>
+                        <th>Какво</th>
+                        <th>Бележки</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>18:30 &ndash; 19:00</td><td>Регистрация, нетуъркинг, кафе</td><td>Гостите се настаняват, домакинът поздравява</td></tr>
+                    <tr><td>19:00 &ndash; 19:10</td><td>Откриване от чаптъра</td><td>5-10 минути: новини от OWASP Sofia, представяне на домакина</td></tr>
+                    <tr><td>19:10 &ndash; 19:15</td><td>Кратка дума от домакина</td><td>По избор, фокус върху технологичен профил и кариерни възможности</td></tr>
+                    <tr><td>19:15 &ndash; 19:50</td><td>Доклад 1</td><td>25-30 мин + 5 мин Q&amp;A</td></tr>
+                    <tr><td>19:50 &ndash; 20:25</td><td>Доклад 2</td><td>25-30 мин + 5 мин Q&amp;A</td></tr>
+                    <tr><td>20:25 &ndash; 20:40</td><td>Пауза</td><td>Втора кафе или снакс пауза</td></tr>
+                    <tr><td>20:40 &ndash; 21:15</td><td>Доклад 3</td><td>25-30 мин + 5 мин Q&amp;A</td></tr>
+                    <tr><td>21:15 &ndash; 21:30</td><td>Lightning talks или панел</td><td>Опционални 1-2 кратки доклада от 5-10 минути</td></tr>
+                    <tr><td>21:30 нататък</td><td>Нетуъркинг</td><td>Често продължава в близък бар или ресторант</td></tr>
+                </tbody>
+            </table>
+            <p>
+                В рамките на едно събитие имаме обикновено <strong>между 3 и 5 сесии</strong>, в зависимост от продължителността им.
+                Lightning talks (5-10 минути) са добра възможност за първи лектори, ad-hoc демонстрации или представяне на open source
+                проекти от общността.
+            </p>
+
+            <h3>Какво можете да очаквате от нас като чаптър</h3>
+            <ul>
+                <li><strong>Промоция.</strong> Анонсът излиза 2-3 седмици преди събитието през Meetup, LinkedIn, X/Twitter, имейл лист и Slack на български security общности.</li>
+                <li><strong>Регистрационна страница.</strong> Използваме <a href="https://www.meetup.com/owasp-sofia-chapter/" target="_blank" rel="noopener">Meetup.com/owasp-sofia-chapter</a> за анонси и регистрация &mdash; едно от стандартните места, където OWASP чаптъри организират срещите си.</li>
+                <li><strong>Безплатен достъп.</strong> Всички редовни срещи на OWASP чаптъри са безплатни, без изключение. Това е изрично записано в <a href="https://policy.owasp.org/operational/chapters" target="_blank" rel="noopener">Chapters Policy</a>, секция &bdquo;Meetings and Activity Requirements&ldquo;.</li>
+                <li><strong>Записи.</strong> Където е възможно, излъчваме на живо или записваме и публикуваме видеата след събитието.</li>
+                <li><strong>Активност.</strong> OWASP изисква минимум 3 чаптър активности годишно (<a href="https://policy.owasp.org/operational/chapters" target="_blank" rel="noopener">Chapters Policy</a>); в практиката се стремим към една среща на 1-2 месеца, плюс участие в по-големи събития като BSides Sofia, AppSec Days, OWASP Global AppSec, когато има условия.</li>
+            </ul>
+
+            <h3>За участниците</h3>
+            <ul>
+                <li>Не е нужно да сте OWASP member, за да дойдете. Всички срещи са отворени за публиката съгласно <a href="https://policy.owasp.org/operational/chapters" target="_blank" rel="noopener">Chapters Policy</a>.</li>
+                <li>Предварителна регистрация е желателна за капацитетно планиране на залата и почерпката, но не е задължителна за повечето събития.</li>
+                <li>Не споделяме и не продаваме лични данни на трети страни. Данните от регистрацията се обработват съгласно <a href="https://policy.owasp.org/operational/privacy" target="_blank" rel="noopener">OWASP Privacy Policy</a> и приложимите регулации в ЕС (GDPR).</li>
+                <li>Снимки и видео могат да бъдат правени по време на събитието и да се ползват в маркетингови материали на OWASP. Ако предпочитате да не сте на снимки, кажете ни на входа, ще го уважим.</li>
+            </ul>
+
+            <p class="meta-note">
+                Тази страница е написана от водещите на OWASP Sofia и се ревизира периодично (последна редакция: 2026-05-15).
+                Цитираните политики на OWASP Foundation са версиите към датата на последна редакция и могат да бъдат актуализирани.
+                Винаги се консултирайте с оригиналните документи на <a href="https://policy.owasp.org/" target="_blank" rel="noopener">policy.owasp.org</a>.
+                <br><br>
+                OWASP&reg;, the OWASP logo и Global AppSec са регистрирани търговски марки на OWASP Foundation, Inc.
+            </p>
+        </article>
+    </div>
+</div>
+
+<!-- ===== Екип ===== -->
+<section id="екип" class="community-section">
+    <div class="container">
+        <h2 class="section-title">Екип</h2>
+        <p class="section-desc">Настоящите лидери на OWASP Sofia.</p>
+        <div class="leaders-grid">
+            <div class="leader-card">
+                <div class="leader-icon">ME</div>
+                <h3>Miglen Evlogiev</h3>
+                <p>Chapter Leader</p>
+                <div class="leader-links">
+                    <a href="https://www.linkedin.com/in/miglen/" target="_blank" rel="noopener" title="LinkedIn"><svg class="icon-svg"><use href="#icon-linkedin"/></svg></a>
+                    <a href="https://miglen.com" target="_blank" rel="noopener" title="Website"><svg class="icon-svg"><use href="#icon-web"/></svg></a>
+                    <a href="https://github.com/miglen" target="_blank" rel="noopener" title="GitHub"><svg class="icon-svg"><use href="#icon-github"/></svg></a>
+                    <a href="mailto:miglen.evlogiev@owasp.org" title="Email"><svg class="icon-svg"><use href="#icon-email"/></svg></a>
+                </div>
+            </div>
+            <div class="leader-card">
+                <div class="leader-icon">TT</div>
+                <h3>Todor Todorov</h3>
+                <p>Chapter Leader</p>
+                <div class="leader-links">
+                    <a href="https://www.linkedin.com/in/totollygeek/" target="_blank" rel="noopener" title="LinkedIn"><svg class="icon-svg"><use href="#icon-linkedin"/></svg></a>
+                    <a href="https://todorov.bg/" target="_blank" rel="noopener" title="Website"><svg class="icon-svg"><use href="#icon-web"/></svg></a>
+                    <a href="https://github.com/totollygeek" target="_blank" rel="noopener" title="GitHub"><svg class="icon-svg"><use href="#icon-github"/></svg></a>
+                    <a href="mailto:todor.todorov@owasp.org" title="Email"><svg class="icon-svg"><use href="#icon-email"/></svg></a>
+                </div>
+            </div>
+            <div class="leader-card">
+                <div class="leader-icon">MS</div>
+                <h3>Martin Stoynov</h3>
+                <p>Chapter Leader</p>
+                <div class="leader-links">
+                    <a href="https://www.linkedin.com/in/martinstnv/" target="_blank" rel="noopener" title="LinkedIn"><svg class="icon-svg"><use href="#icon-linkedin"/></svg></a>
+                    <a href="https://martinstnv.com/" target="_blank" rel="noopener" title="Website"><svg class="icon-svg"><use href="#icon-web"/></svg></a>
+                    <a href="https://github.com/martinstnv" target="_blank" rel="noopener" title="GitHub"><svg class="icon-svg"><use href="#icon-github"/></svg></a>
+                    <a href="mailto:martin.stoynov@owasp.org" title="Email"><svg class="icon-svg"><use href="#icon-email"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Партньори ===== -->
+<section id="партньори" class="community-section">
+    <div class="container">
+        <h2 class="section-title">Приятелски организации</h2>
+        <p class="section-desc">Организации и общности, с които споделяме мисия и ценности.</p>
+        <div class="partners-grid">
+            <a href="https://xakep.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>XaKeP.bg</h3>
+                <p>Българска общност за етично хакерство, изследвания и споделяне на знания в киберсигурността.</p>
+            </a>
+            <a href="https://cybersecuritytalks.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>Cyber Security Talks</h3>
+                <p>Месечни срещи за киберсигурност в България &mdash; специалисти, институции и ентусиасти споделят опит и идеи.</p>
+            </a>
+            <a href="https://csf.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>Cyber Security Forum (CSF)</h3>
+                <p>Българска фондация за киберсигурност &mdash; образование, кариерно развитие и професионална мрежа.</p>
+            </a>
+            <a href="https://securitybsides.bg/" target="_blank" rel="noopener" class="partner-card">
+                <h3>BSides Sofia</h3>
+                <p>Конференция за информационна сигурност в София &mdash; част от глобалната BSides общност.</p>
+            </a>
+            <a href="https://isaca-sofia.org/" target="_blank" rel="noopener" class="partner-card">
+                <h3>ISACA Sofia Chapter</h3>
+                <p>Софийският клон на ISACA &mdash; одит, управление на риска и информационна сигурност.</p>
+            </a>
+            <a href="https://cybersecbg.org/" target="_blank" rel="noopener" class="partner-card">
+                <h3>Българска Асоциация по Киберсигурност</h3>
+                <p>Професионална организация за развитие на киберсигурността в България чрез образование и сътрудничество.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Абонамент ===== -->
+<section id="абонамент" class="community-section">
+    <div class="container">
+        <div class="subscribe-card">
+            <h2>Бъди в течение</h2>
+            <p>
+                Абонирай се за бюлетина, за да получаваш покани за бъдещи събития,
+                новини от общността и нови ресурси по сигурност.
+            </p>
+            <form class="htc-subscribe" data-source="owaspbg-policies">
+                <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+                <button type="submit">Абонирай се</button>
+                <span class="htc-msg" aria-live="polite"></span>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Контакти ===== -->
+<section id="контакти" class="community-section">
+    <div class="container">
+        <h2 class="section-title">Контакти и общност</h2>
+        <p class="section-desc">Свържете се с нас или се присъединете към общността.</p>
+        <div class="contact-links">
+            <a href="https://www.meetup.com/OWASP-Sofia-Chapter/" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon">&#128197;</div>
+                <h3>Meetup</h3>
+                <p>Събития и регистрация</p>
+            </a>
+            <a href="https://discord.com/channels/849266967856414731/981867323298312223" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon">&#128172;</div>
+                <h3>Discord</h3>
+                <p>Чат с общността</p>
+            </a>
+            <a href="https://owasp.org/slack/invite" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon"><svg class="icon-svg" style="width:32px;height:32px;"><use href="#icon-slack"/></svg></div>
+                <h3>Slack</h3>
+                <p>#chapter-sofia</p>
+            </a>
+            <a href="https://sessionize.com/owasp-sofia/" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon">&#127908;</div>
+                <h3>Sessionize</h3>
+                <p>Предложи презентация</p>
+            </a>
+            <a href="https://www.linkedin.com/company/107314221/" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon"><svg class="icon-svg" style="width:32px;height:32px;"><use href="#icon-linkedin"/></svg></div>
+                <h3>LinkedIn</h3>
+                <p>Следвайте ни</p>
+            </a>
+            <a href="https://www.facebook.com/owaspbg" target="_blank" rel="noopener" class="contact-card">
+                <div class="icon"><svg class="icon-svg" style="width:32px;height:32px;"><use href="#icon-facebook"/></svg></div>
+                <h3>Facebook</h3>
+                <p>Следвайте ни</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div style="max-width: 600px;">
+                <p>&copy; 2019&ndash;2026 OWASP Sofia Chapter. Част от <a href="https://owasp.org/" target="_blank" rel="noopener">OWASP Foundation, Inc.</a></p>
+                <p style="margin-top: 12px; font-size: 0.8rem; opacity: 0.7; line-height: 1.7;">
+                    Всички OWASP материали са безплатни и достъпни под
+                    <a href="https://owasp.org/about/" target="_blank" rel="noopener">отворен лиценз</a>.
+                    OWASP не одобрява и не препоръчва комерсиални продукти или услуги, което позволява на общността
+                    да остане обективна и практична в областта на софтуерната сигурност.
+                </p>
+                <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.55; line-height: 1.7;">
+                    OWASP, логото на OWASP и Global AppSec са регистрирани търговски марки.
+                    AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference
+                    и LASCON са търговски марки на OWASP Foundation, Inc.
+                </p>
+            </div>
+            <div style="text-align: right;">
+                <div class="footer-social" style="justify-content: flex-end; margin-bottom: 16px;">
+                    <a href="https://www.linkedin.com/company/107314221/" target="_blank" rel="noopener" title="LinkedIn"><svg class="icon-svg"><use href="#icon-linkedin"/></svg></a>
+                    <a href="https://www.facebook.com/owaspbg" target="_blank" rel="noopener" title="Facebook"><svg class="icon-svg"><use href="#icon-facebook"/></svg></a>
+                    <a href="https://discord.com/channels/849266967856414731/981867323298312223" target="_blank" rel="noopener" title="Discord"><svg class="icon-svg"><use href="#icon-discord"/></svg></a>
+                </div>
+                <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+                    <a href="policies.html">Правила и очаквания</a>
+                    <a href="policies.html#code-of-conduct">Кодекс на поведение</a>
+                    <a href="policies.html#hosting">Домакинство</a>
+                    <a href="policies.html#presenting">Презентации</a>
+                    <a href="policies.html#branding">Брандинг</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Subscribe form handler
+    (function () {
+        document.querySelectorAll('form.htc-subscribe').forEach(function (form) {
+            var msg = form.querySelector('.htc-msg');
+            var btn = form.querySelector('button');
+            var source = form.dataset.source || 'unknown';
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                msg.textContent = '';
+                msg.style.color = '';
+
+                var payload = { source: source };
+                new FormData(form).forEach(function (value, key) {
+                    var v = String(value).trim();
+                    if (v) payload[key] = v;
+                });
+
+                if (!payload.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+                    msg.textContent = 'Моля, въведи валиден имейл адрес.';
+                    msg.style.color = '#ff8888';
+                    return;
+                }
+
+                btn.disabled = true;
+                try {
+                    var res = await fetch('https://www.hackertociso.com/api/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) {
+                        msg.textContent = '✓ Благодарим! Вписан си в списъка.';
+                        msg.style.color = '#7fffa6';
+                        form.reset();
+                    } else {
+                        msg.textContent = 'Нещо се обърка. Опитай отново.';
+                        msg.style.color = '#ff8888';
+                    }
+                } catch (err) {
+                    msg.textContent = 'Мрежова грешка. Опитай отново.';
+                    msg.style.color = '#ff8888';
+                }
+                finally { btn.disabled = false; }
+            });
+        });
+    })();
+
+    // TOC active state on scroll
+    (function () {
+        var sections = document.querySelectorAll('article h2[id]');
+        var tocLinks = document.querySelectorAll('.toc a');
+        function setActive() {
+            var scrollY = window.scrollY + 120;
+            var current = '';
+            sections.forEach(function (s) {
+                if (s.offsetTop <= scrollY) current = s.id;
+            });
+            tocLinks.forEach(function (l) {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+            });
+        }
+        window.addEventListener('scroll', setActive, { passive: true });
+        setActive();
+    })();
+</script>
+
+</body>
+</html>
