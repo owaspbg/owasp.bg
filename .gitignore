@@ -4,3 +4,6 @@
 
 # Internal operational docs (not for public repo)
 docs/
+
+# Local Claude Code config
+.claude/launch.json
