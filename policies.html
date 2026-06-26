@@ -8,7 +8,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script defer src="https://umami.miglen.com/script.js" data-website-id="82faab38-3cc8-4d91-af9a-f6213b3c3287"></script>
 </head>
@@ -56,23 +56,21 @@
 </svg>
 
 <!-- ===== Header ===== -->
-<header>
-    <div class="header-inner">
-        <a href="index.html" class="logo-area">
-            <img src="https://owasp.org/assets/images/logo.png" alt="OWASP лого">
-        </a>
-        <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav').classList.toggle('open')">
-            <span></span><span></span><span></span>
-        </button>
-        <nav>
-            <a href="index.html#за-нас"><svg><use href="#icon-info"/></svg>За нас</a>
-            <a href="index.html#събития"><svg><use href="#icon-calendar"/></svg>Събития</a>
-            <a href="index.html#ресурси"><svg><use href="#icon-book"/></svg>Ресурси</a>
-            <a href="index.html#top10"><svg><use href="#icon-shield"/></svg>Top 10</a>
-            <a href="index.html#екип"><svg><use href="#icon-users"/></svg>Екип</a>
-            <a href="index.html#контакти"><svg><use href="#icon-mail"/></svg>Контакти</a>
-        </nav>
-    </div>
+<header class="nav">
+    <a href="index.html" class="brand">
+        <img src="https://owasp.org/assets/images/logo.png" alt="OWASP лого">
+    </a>
+    <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav.primary').classList.toggle('open')">
+        <span></span><span></span><span></span>
+    </button>
+    <nav class="primary">
+        <a href="index.html#за-нас"><svg><use href="#icon-info"/></svg>За нас</a>
+        <a href="index.html#събития"><svg><use href="#icon-calendar"/></svg>Събития</a>
+        <a href="index.html#ресурси"><svg><use href="#icon-book"/></svg>Ресурси</a>
+        <a href="index.html#top10"><svg><use href="#icon-shield"/></svg>Top 10</a>
+        <a href="index.html#екип"><svg><use href="#icon-users"/></svg>Екип</a>
+        <a href="index.html#контакти"><svg><use href="#icon-mail"/></svg>Контакти</a>
+    </nav>
 </header>
 
 <!-- ===== Page Hero ===== -->
