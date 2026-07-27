@@ -441,7 +441,7 @@ function syncLegend(){
 function buildYearBar(){
   var bar=document.getElementById("years");bar.innerHTML="";
   CAT.years.forEach(function(y){var b=document.createElement("button");b.className="chip"+(selected[y]?" on":"");b.textContent=y;
-    b.onclick=function(){var k=CAT.years.filter(function(z){return selected[z];}).length;if(selected[y]&&k<=1)return;selected[y]=!selected[y];b.classList.toggle("on",selected[y]);focus=null;applyLayout(computeLayout(),true);};
+    b.onclick=function(){var k=CAT.years.filter(function(z){return selected[z];}).length;if(selected[y]&&k<=1)return;selected[y]=!selected[y];b.classList.toggle("on",selected[y]);focus=null;applyLayout(computeLayout(),true);syncURL();};
     bar.appendChild(b);});
 }
 
@@ -454,12 +454,15 @@ function sizeStage(){
   dpr=window.devicePixelRatio||1;
   pcanvas.width=W*dpr; pcanvas.height=H*dpr; pcanvas.style.width=W+"px"; pcanvas.style.height=H+"px";
 }
-function loadCatalogue(key){
+function readParams(){var q=new URLSearchParams(location.search);var tab=(q.get("top10")||q.get("tab")||q.get("cat")||"").toLowerCase().trim();var alias={llm:"genai","genai/llm":"genai",ai:"genai",qs:"quantum","quantum-top-10":"quantum"};tab=alias[tab]||tab;if(!CATALOGUES[tab])tab=null;var yrs=((q.get("years")||q.get("editions")||"").match(/\d{4}/g)||[]).map(Number);return {tab:tab,years:yrs};}
+function syncURL(){if(!CAT)return;var parts=["top10="+curKey];var ys=CAT.years.filter(function(y){return selected[y];});if(ys.length&&ys.length<CAT.years.length)parts.push("years="+ys.join(","));try{history.replaceState(null,"","?"+parts.join("&"));}catch(e){}}
+function loadCatalogue(key,yearsFilter){
   CAT=CATALOGUES[key]; curKey=key;
   CONTENT=CAT.content; HIST=CAT.hist; SNAP=CAT.snap||{};
   byFull={}; CAT.master.forEach(function(n){byFull[n.full]=n;});
   preds={}; succs={}; CAT.links.forEach(function(l){(succs[l.source]=succs[l.source]||[]).push(l.target);(preds[l.target]=preds[l.target]||[]).push(l.source);});
   selected={}; CAT.years.forEach(function(y){selected[y]=true;});
+  if(yearsFilter&&yearsFilter.length){var _vf=yearsFilter.filter(function(y){return CAT.years.indexOf(y)>=0;});if(_vf.length){CAT.years.forEach(function(y){selected[y]=false;});_vf.forEach(function(y){selected[y]=true;});}}
   focus=null; familyFilter=null;
   // per-catalogue chart height from busiest column
   var perc={}; CAT.master.forEach(function(n){perc[n.year]=(perc[n.year]||0)+1;});
@@ -477,6 +480,7 @@ function loadCatalogue(key){
   closeModal();
   scrollLatest();
   window.scrollTo({top:0,behavior:"smooth"});
+  syncURL();
 }
 
 /* ---------- init ---------- */
@@ -488,7 +492,7 @@ function init(){
   document.body.classList.toggle("dark",dark);
   document.getElementById("themeBtn").textContent=dark?"☀ Light":"☽ Dark";
   document.getElementById("themeBtn").onclick=function(){dark=!dark;document.body.classList.toggle("dark",dark);this.textContent=dark?"☀ Light":"☽ Dark";};
-  document.getElementById("allBtn").onclick=function(){CAT.years.forEach(function(y){selected[y]=true;});focus=null;buildYearBar();applyLayout(computeLayout(),true);};
+  document.getElementById("allBtn").onclick=function(){CAT.years.forEach(function(y){selected[y]=true;});focus=null;buildYearBar();applyLayout(computeLayout(),true);syncURL();};
   document.getElementById("mbackdrop").onclick=closeModal;
   document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){closeModal();return;}
@@ -502,7 +506,7 @@ function init(){
   svg.addEventListener("click",function(){if(familyFilter){familyFilter=null;syncLegend();reapply();}});
   var rt; window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){sizeStage();if(LAY)applyLayout(computeLayout(),false);},150);});
   requestAnimationFrame(tickParticles);
-  loadCatalogue("web");
+  var _p=readParams(); loadCatalogue(_p.tab||"web", _p.years);
 }
 init();
 
