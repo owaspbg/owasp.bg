@@ -519,7 +519,7 @@ section { padding: clamp(64px, 8vw, 110px) 0; position: relative; }
 /* ===== Leaders ===== */
 .leaders-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 240px));
+    grid-template-columns: repeat(4, minmax(0, 240px));
     gap: 22px;
     justify-content: center;
 }
@@ -861,7 +861,7 @@ section.community-section { padding: clamp(56px, 7vw, 100px) 0; border-top: 1px 
 
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {
-    .leaders-grid { grid-template-columns: repeat(3, minmax(0, 200px)); gap: 16px; }
+    .leaders-grid { grid-template-columns: repeat(4, minmax(0, 200px)); gap: 16px; }
     .partners-grid { grid-template-columns: repeat(2, 1fr); }
     .contact-links { grid-template-columns: repeat(3, 1fr); }
     .about-grid { grid-template-columns: 1fr; gap: 24px; }
