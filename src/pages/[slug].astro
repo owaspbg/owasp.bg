@@ -1,43 +1,53 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import { render } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import { getEvents, formatDate, type Event } from '../../lib/events';
-import { embedUrl, fileUrl, isPdf } from '../../lib/media';
+import Base from '../layouts/Base.astro';
+import { getEvents, formatDate, eventUrl, program, type Event } from '../lib/events';
+import { embedUrl, fileUrl, isPdf } from '../lib/media';
 
 export async function getStaticPaths() {
   const events = await getEvents();
   return events.map((event, i) => ({
-    params: { slug: event.id },
+    params: { slug: event.slug },
     props: { event, newer: events[i - 1], older: events[i + 1] },
   }));
 }
 
 interface Props { event: Event; newer?: Event; older?: Event }
 const { event, newer, older } = Astro.props;
-const { date, location, meetup, recording, sessions } = event.data;
+const { date, location, locationUrl, hosts, meetup, recording, sessions } = event.data;
 const { Content } = await render(event);
 const recordingEmbed = recording && embedUrl(recording);
 const photos = await Promise.all(event.gallery.map(async (img) => ({ img, full: (await getImage({ src: img, width: 1920, quality: 80 })).src })));
 const cover = event.cover && (await getImage({ src: event.cover, width: 1200 })).src;
-const speakers = sessions.map((s) => s.speaker).join(', ');
+const items = program(event);
+const timed = items.some((p) => p.time);
+const times = items.map((p) => p.time).filter(Boolean);
+const hours = times.length > 1 ? `${times[0]} – ${times.at(-1)} ч.` : times[0] && `${times[0]} ч.`;
 ---
 <Base title={event.title} description={`${formatDate(date)} · ${sessions.map((s) => s.title).join(' · ')}`} image={cover}>
     <section class="page-hero">
-        <div class="container">
+        <div class="container event-hero">
+          <div>
             <div class="breadcrumb"><a href="/events/">Събития</a> &nbsp;/&nbsp; {formatDate(date)}</div>
             <h1>{event.title}</h1>
-            <p class="event-meta">
-                <span><svg class="icon-svg-sm"><use href="#icon-calendar"/></svg> <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time></span>
-                {location && <span><svg class="icon-svg-sm"><use href="#icon-pin"/></svg> {location}</span>}
-                {speakers && <span><svg class="icon-svg-sm"><use href="#icon-mic"/></svg> {speakers}</span>}
-            </p>
+            <ul class="event-meta">
+                <li><svg class="icon-svg-sm"><use href="#icon-calendar"/></svg><span><time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>{hours && <>, {hours}</>}</span></li>
+                {location && <li><svg class="icon-svg-sm"><use href="#icon-pin"/></svg><span>{locationUrl ? <a href={locationUrl} target="_blank" rel="noopener">{location}</a> : location}</span></li>}
+                {hosts.length > 0 && (
+                    <li><svg class="icon-svg-sm"><use href="#icon-building"/></svg><span>{hosts.length > 1 ? 'Домакини' : 'Домакин'}:{' '}
+                        {hosts.map((h, i) => <>{i > 0 && ' и '}{h.url ? <a href={h.url} target="_blank" rel="noopener">{h.name}</a> : h.name}</>)}</span>
+                    </li>
+                )}
+            </ul>
             <nav class="event-jump">
                 <a href="#program" class="btn btn-ghost">Програма</a>
                 {recording && <a href="#recording" class="btn btn-ghost"><svg><use href="#icon-play"/></svg>Запис</a>}
                 {photos.length > 0 && <a href="#gallery" class="btn btn-ghost"><svg><use href="#icon-image"/></svg>Снимки ({photos.length})</a>}
                 {meetup && <a href={meetup} target="_blank" rel="noopener" class="btn btn-primary">Meetup →</a>}
             </nav>
+          </div>
+          {event.cover && <Image src={event.cover} alt={`Банер на ${event.title}`} width={720} quality={80} class="event-hero-cover" loading="eager" />}
         </div>
     </section>
 
@@ -55,19 +65,29 @@ const speakers = sessions.map((s) => s.speaker).join(', ');
 
         <section id="program" class="event-section">
             <h2 class="section-title">Програма</h2>
-            <ol class="sessions">
-                {sessions.map((s, i) => {
+            <ol class:list={['sessions', { timed }]}>
+                {items.map((s) => {
+                    const who = s.speaker && (
+                        <>
+                            {s.speakerUrl
+                                ? <a href={s.speakerUrl} target="_blank" rel="noopener" class="author-link">{s.speaker} <svg class="icon-svg-sm"><use href={s.speakerUrl.includes('x.com') ? '#icon-x' : s.speakerUrl.includes('linkedin.com') ? '#icon-linkedin' : '#icon-web'}/></svg></a>
+                                : s.speaker}
+                            {s.company && <> <span class="session-at">@</span> {s.companyUrl ? <a href={s.companyUrl} target="_blank" rel="noopener" class="company-link">{s.company}</a> : s.company}</>}
+                        </>
+                    );
+                    if (s.kind === 'slot') return (
+                        <li class="slot">
+                            <time class="session-time">{s.time}</time>
+                            <p><strong>{s.title}</strong>{who && <span class="slot-who"> — {who}</span>}</p>
+                        </li>
+                    );
                     const videoEmbed = s.video && embedUrl(s.video);
                     return (
                         <li class="session glass-card">
-                            <span class="session-num">{String(i + 1).padStart(2, '0')}</span>
+                            {s.time ? <time class="session-time">{s.time}</time> : <span class="session-num">{String(s.n).padStart(2, '0')}</span>}
                             <div class="session-body">
                                 <h3>{s.title}</h3>
-                                <p class="session-speaker">
-                                    {s.speakerUrl
-                                        ? <a href={s.speakerUrl} target="_blank" rel="noopener" class="author-link">{s.speaker} <svg class="icon-svg-sm"><use href={s.speakerUrl.includes('x.com') ? '#icon-x' : '#icon-linkedin'}/></svg></a>
-                                        : s.speaker}
-                                </p>
+                                <p class="session-speaker">{who}</p>
                                 {s.abstract && <p class="session-abstract">{s.abstract}</p>}
                                 <div class="session-actions">
                                     {s.slides && isPdf(s.slides) && <>
@@ -100,8 +120,8 @@ const speakers = sessions.map((s) => s.speaker).join(', ');
         )}
 
         <nav class="event-pager">
-            {older ? <a href={`/events/${older.id}/`} class="glass-card"><small>← По-стара среща</small>{older.title}</a> : <span />}
-            {newer ? <a href={`/events/${newer.id}/`} class="glass-card"><small>По-нова среща →</small>{newer.title}</a> : <span />}
+            {older ? <a href={eventUrl(older)} class="glass-card"><small>← По-стара среща</small>{older.title}</a> : <span />}
+            {newer ? <a href={eventUrl(newer)} class="glass-card"><small>По-нова среща →</small>{newer.title}</a> : <span />}
         </nav>
     </div>
 

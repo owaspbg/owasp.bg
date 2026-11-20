@@ -12,9 +12,9 @@ OWASP Sofia is the first and only OWASP chapter in Bulgaria — a community of c
 
 | Page | Source |
 |------|--------|
-| `/` — hero, latest events, about, newsletter | `src/pages/index.astro` |
+| `/` — hero, latest events, about, leaders, newsletter | `src/pages/index.astro` |
 | `/events/` — all meetups by year | `src/pages/events/index.astro` |
-| `/events/<date>/` — program, speakers, slides, recording, photos | `src/pages/events/[slug].astro` |
+| `/owasp-sofia-<month>-<year>-meetup/` — one page per event: hourly program, speakers, hosts, slides, recording, photos | `src/pages/[slug].astro` |
 | `/resources/` — OWASP projects + Top 10 | `src/pages/resources.astro` |
 | `/about/` — about, team, partners | `src/pages/about.astro` |
 | `/contact/` — channels + newsletter | `src/pages/contact.astro` |
@@ -40,20 +40,38 @@ src/content/events/2026-04-30/
 ---
 date: 2026-04-30
 title: "OWASP Sofia Meetup · април 2026"   # optional, generated from the date
+slug: "owasp-sofia-april-2026-meetup"   # optional, generated from the date (see below)
 location: "Progress, бул. Цариградско шосе 54Б"   # optional
+locationUrl: "https://maps.app.goo.gl/..."   # optional, makes the location a map link
+hosts:   # optional, the company/venue hosting the event
+  - name: "Progress"
+    url: "https://www.progress.com/"
 meetup: "https://www.meetup.com/owasp-sofia-chapter/events/..."   # optional
 recording: "https://youtu.be/..."   # optional, one video for the whole event (embedded on the page)
+agenda:   # optional, non-talk slots; shown with the talks, ordered by time
+  - time: "19:00"
+    title: "Начало и въведение"
+  - time: "21:30"
+    title: "Q&A и networking"
+  - time: "22:00"
+    title: "Закриване"
 sessions:
-  - title: "Talk title"
+  - time: "19:15"   # optional, HH:MM
+    title: "Talk title"
     speaker: "Name Surname"
     speakerUrl: "https://www.linkedin.com/in/..."   # optional
+    company: "Company"   # optional, shown as "Speaker @ Company"
+    companyUrl: "https://..."   # optional
     abstract: "One paragraph."   # optional
     slides: "/assets/presentations/202604 - Talk by Name.pdf"   # optional: a PDF in public/ or any URL
     video: "https://youtu.be/...?t=120"   # optional, per-talk video (YouTube or Google Drive)
 ---
 
-Optional free-text description of the event (Markdown).
+Short overview of the event (Markdown), shown above the program.
 ```
+
+- The page URL is named like the Meetup event: `2026-04-30` → `/owasp-sofia-april-2026-meetup/`. If a month has two events, the day is added (`/owasp-sofia-july-21-2021-meetup/`). Set `slug:` to override; the build fails on duplicates.
+- The cover is the Meetup event banner, saved as `cover.jpg` in the event folder.
 
 - PDF slides open in an in-page viewer (pdf.js, works on phones) and can be downloaded.
 - YouTube links (incl. `t=` start time) and Google Drive links are embedded; other links open in a new tab.

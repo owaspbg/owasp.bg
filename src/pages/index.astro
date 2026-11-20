@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
+import Leaders from '../components/Leaders.astro';
 import Subscribe from '../components/Subscribe.astro';
 import EventCard from '../components/EventCard.astro';
 import { getEvents } from '../lib/events';
@@ -23,5 +24,6 @@ const latest = (await getEvents()).slice(0, 3);
         </div>
     </section>
     <About />
+    <Leaders />
     <Subscribe />
 </Base>
