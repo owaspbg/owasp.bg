@@ -23,10 +23,11 @@ const channels = [
             <span class="contact-icon contact-icon-lg"><svg><use href="#icon-email"/></svg></span>
             <div class="contact-email-text">
                 <h3>Пиши ни</h3>
+                <a href={`mailto:${EMAIL}`} class="contact-email-address">{EMAIL}</a>
                 <p>За домакинство на среща, партньорство, презентация или просто въпрос.</p>
             </div>
             <div class="contact-email-actions">
-                <a href={`mailto:${EMAIL}`} class="btn btn-primary"><svg><use href="#icon-email"/></svg>{EMAIL}</a>
+                <a href={`mailto:${EMAIL}`} class="btn btn-primary"><svg><use href="#icon-email"/></svg>Изпрати имейл</a>
                 <button type="button" class="btn btn-ghost contact-copy" data-copy={EMAIL} aria-label={`Копирай ${EMAIL}`}><svg><use href="#icon-copy"/></svg><span>Копирай</span></button>
             </div>
         </div>
