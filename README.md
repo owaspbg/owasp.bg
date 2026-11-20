@@ -12,12 +12,12 @@ OWASP Sofia is the first and only OWASP chapter in Bulgaria — a community of c
 
 | Page | Source |
 |------|--------|
-| `/` — hero, latest events, about, leaders, newsletter | `src/pages/index.astro` |
+| `/` — hero, latest events, about, leaders | `src/pages/index.astro` |
 | `/events/` — all meetups by year | `src/pages/events/index.astro` |
-| `/owasp-sofia-<month>-<year>-meetup/` — one page per event: hourly program, speakers, hosts, slides, recording, photos | `src/pages/[slug].astro` |
+| `/<month>-<year>-meetup/` — one page per event: hourly program, speakers, hosts, slides, recording, photos | `src/pages/[slug].astro` |
 | `/resources/` — OWASP projects + Top 10 | `src/pages/resources.astro` |
 | `/about/` — about, team, partners | `src/pages/about.astro` |
-| `/contact/` — channels + newsletter | `src/pages/contact.astro` |
+| `/contact/` — channels | `src/pages/contact.astro` |
 | `/policies/` — rules and expectations | `src/pages/policies.astro` |
 | `/top10.html` — interactive Top 10 history (static file) | `public/top10.html` |
 
@@ -40,7 +40,7 @@ src/content/events/2026-04-30/
 ---
 date: 2026-04-30
 title: "OWASP Sofia Meetup · април 2026"   # optional, generated from the date
-slug: "owasp-sofia-april-2026-meetup"   # optional, generated from the date (see below)
+slug: "april-2026-meetup"   # optional, generated from the date (see below)
 location: "Progress, бул. Цариградско шосе 54Б"   # optional
 locationUrl: "https://maps.app.goo.gl/..."   # optional, makes the location a map link
 hosts:   # optional, the company/venue hosting the event
@@ -70,7 +70,7 @@ sessions:
 Short overview of the event (Markdown), shown above the program.
 ```
 
-- The page URL is named like the Meetup event: `2026-04-30` → `/owasp-sofia-april-2026-meetup/`. If a month has two events, the day is added (`/owasp-sofia-july-21-2021-meetup/`). Set `slug:` to override; the build fails on duplicates.
+- The page URL is named like the Meetup event: `2026-04-30` → `/april-2026-meetup/`. If a month has two events, the day is added (`/july-21-2021-meetup/`). Set `slug:` to override; the build fails on duplicates.
 - The cover is the Meetup event banner, saved as `cover.jpg` in the event folder.
 
 - PDF slides open in an in-page viewer (pdf.js, works on phones) and can be downloaded.

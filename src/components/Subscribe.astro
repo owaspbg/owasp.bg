@@ -1,19 +1,14 @@
-<section id="абонамент">
-    <div class="container">
-        <div class="subscribe-card">
-            <h2>Бъди в течение</h2>
-            <p>
-                Абонирай се за бюлетина, за да получаваш покани за бъдещи събития,
-                новини от общността и нови ресурси по сигурност.
-            </p>
-            <form class="htc-subscribe" data-source="owaspbg-home">
-                <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
-                <button type="submit">Абонирай се</button>
-                <span class="htc-msg" aria-live="polite"></span>
-            </form>
-        </div>
+<div class="footer-subscribe" id="абонамент">
+    <div>
+        <strong>Бъди в течение</strong>
+        <p>Покани за бъдещи срещи, новини от общността и нови ресурси по сигурност.</p>
     </div>
-</section>
+    <form class="htc-subscribe" data-source="owaspbg-home">
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" aria-label="Имейл адрес">
+        <button type="submit">Абонирай се</button>
+        <span class="htc-msg" aria-live="polite"></span>
+    </form>
+</div>
 <script>
     // Subscribe form handler
     (function () {

@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import EventCard from '../components/EventCard.astro';
+import { getEvents, eventUrl } from '../lib/events';
+
+const events = await getEvents();
+const latest = events.slice(0, 3);
+// Lets old date-based links (/events/2026-09-23/) land on the event's current page
+const byDate = Object.fromEntries(events.map((e) => [e.id, eventUrl(e)]));
+---
+<Base title="Страницата не е намерена" description="Тази страница не съществува. Разгледай срещите и ресурсите на OWASP Sofia.">
+    <section class="page-hero not-found">
+        <div class="container">
+            <div class="not-found-code" aria-hidden="true">404</div>
+            <p class="eyebrow">HTTP 404 · Not Found</p>
+            <h1>Тази страница я няма</h1>
+            <p>
+                Линкът може да е стар или адресът да е сгрешен. Не е Broken Access Control —
+                страницата просто не съществува.
+            </p>
+            <p class="not-found-path" hidden>Търсено: <code></code></p>
+            <nav class="event-jump">
+                <a href="/" class="btn btn-primary">Към началото</a>
+                <a href="/events/" class="btn btn-ghost"><svg><use href="#icon-calendar"/></svg>Всички срещи</a>
+                <a href="/resources/" class="btn btn-ghost"><svg><use href="#icon-book"/></svg>Ресурси</a>
+                <a href="/contact/" class="btn btn-ghost"><svg><use href="#icon-mail"/></svg>Пиши ни</a>
+            </nav>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="section-head section-head-row">
+                <div>
+                    <p class="eyebrow">Вместо това</p>
+                    <h2 class="section-title">Последни срещи</h2>
+                </div>
+            </div>
+            <div class="events-grid">{latest.map((e) => <EventCard event={e} />)}</div>
+        </div>
+    </section>
+</Base>
+
+<script is:inline define:vars={{ byDate }}>
+    const date = location.pathname.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+    if (date && byDate[date]) location.replace(byDate[date]);
+    const path = document.querySelector('.not-found-path');
+    path.querySelector('code').textContent = decodeURIComponent(location.pathname);
+    path.hidden = false;
+</script>
