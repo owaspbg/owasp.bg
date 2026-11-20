@@ -4,6 +4,7 @@ export const SITE = {
   legalName: 'OWASP Sofia Chapter',
   url: 'https://owasp.bg',
   email: 'contact@owasp.bg',
+  members: '800+', // Meetup group members; update by hand
   logo: '/assets/images/logo-black-stroke.png',
   image: '/assets/images/og-default.jpg',
   description:

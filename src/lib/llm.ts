@@ -51,6 +51,7 @@ Key facts:
 - Registration: Meetup (${SITE.links.meetup}) and Luma (${SITE.links.luma}).
 - Call for speakers: Sessionize (${SITE.links.sessionize}).
 - Slides, recordings and photos of past meetups are published on each event page at ${SITE.url}/events/.
+- Community size: ${SITE.members} members on Meetup.
 - Chapter leaders: ${SITE.leaders.map((l) => l.name).join(', ')}.
 - Community: Discord (${SITE.links.discord}), LinkedIn (${SITE.links.linkedin}), Facebook (${SITE.links.facebook}), GitHub (${SITE.links.github}), #chapter-sofia on OWASP Slack.
 - OWASP Foundation chapter page: ${SITE.links.owaspChapter}

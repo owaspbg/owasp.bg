@@ -5,63 +5,58 @@ import { SITE } from '../lib/site';
 
 interface Props { events: Event[] }
 const { events } = Astro.props;
-const featured = events[0];
+const last = events[0];
 const talks = events.reduce((n, e) => n + e.data.sessions.length, 0);
 const speakers = new Set(events.flatMap((e) => e.data.sessions.map((s) => s.speaker))).size;
-const firstYear = Math.min(...events.map((e) => e.data.date.getUTCFullYear()));
-const years = new Date().getFullYear() - firstYear;
-const upcoming = featured.data.date.getTime() + 86_400_000 > Date.now();
-const venue = featured.data.location?.split(',')[0];
+const years = new Date().getFullYear() - Math.min(...events.map((e) => e.data.date.getUTCFullYear()));
+const upcoming = last.data.date.getTime() + 86_400_000 > Date.now();
+const venue = last.data.location?.split(',')[0];
+const n = last.data.sessions.length;
 ---
 <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-copy">
-        <p class="hero-badge"><span class="hero-dot"></span>Чаптър на OWASP Foundation в София</p>
+        <p class="eyebrow">Open Worldwide Application Security Project</p>
         <h1>OWASP <span>Sofia</span></h1>
         <p class="lead">
-            Общността за сигурност на софтуера в България. Безплатни срещи
-            с практични технически презентации — от практици, за практици.
+            Първата българска OWASP общност — част от глобалната нестопанска организация
+            за сигурност на софтуера. Безплатни срещи, практични презентации и отворено сътрудничество.
         </p>
         <div class="hero-buttons">
             <a href={`${SITE.links.meetup}events/?type=upcoming`} target="_blank" rel="noopener" class="btn btn-primary">
                 <svg><use href="#icon-calendar"/></svg>Следваща среща
             </a>
-            <a href="/events/" class="btn btn-ghost"><svg><use href="#icon-archive"/></svg>Всички срещи</a>
+            <a href="/events/" class="btn btn-ghost"><svg><use href="#icon-archive"/></svg>Минали срещи</a>
             <a href="https://forms.gle/1XCeTUD3yrdQehu56" target="_blank" rel="noopener" class="hero-link">
                 <svg><use href="#icon-mic"/></svg>Изнеси презентация →
             </a>
         </div>
-        <dl class="hero-stats">
-            <div class="hero-stat"><dt>Срещи</dt><dd>{events.length}</dd></div>
-            <div class="hero-stat"><dt>Презентации</dt><dd>{talks}</dd></div>
-            <div class="hero-stat"><dt>Лектори</dt><dd>{speakers}</dd></div>
-            <div class="hero-stat"><dt>Години</dt><dd>{years}</dd></div>
-        </dl>
-    </div>
-
-    <a href={eventUrl(featured)} class="hero-event" data-date={featured.id}>
-        {featured.cover && (
-            <Image src={featured.cover} alt={`Банер на ${featured.title}`} width={720} quality={80} loading="eager" fetchpriority="high" class="hero-event-cover" />
-        )}
-        <div class="hero-event-body">
-            <p class="hero-event-label">
-                <span class="hero-event-when">{upcoming ? 'Следваща среща' : 'Последна среща'}</span>
-                <time datetime={featured.id}>{formatDate(featured.data.date)}</time>
-            </p>
-            {venue && <p class="hero-event-venue"><svg class="icon-svg-sm"><use href="#icon-pin"/></svg>{venue}</p>}
-            <ul class="hero-event-talks">
-                {featured.data.sessions.slice(0, 3).map((s) => (
-                    <li><strong>{s.title}</strong><span>{s.speaker}{s.company && ` · ${s.company}`}</span></li>
-                ))}
-            </ul>
-            <span class="hero-event-cta">Програма и материали <svg class="icon-svg-sm"><use href="#icon-arrow"/></svg></span>
+        <div class="hero-stats">
+            <div class="hero-stat"><strong>{talks}</strong><span>Презентации</span></div>
+            <div class="hero-stat"><strong>{speakers}</strong><span>Лектора</span></div>
+            <div class="hero-stat"><strong>{years}+</strong><span>Години</span></div>
+            <div class="hero-stat"><strong>{SITE.members}</strong><span>Членове</span></div>
         </div>
-    </a>
+    </div>
+    <div class="hero-art">
+        <img src="/assets/hero-statue.png" alt="OWASP Sofia — стилизирана статуя на София" fetchpriority="high">
+        <a href={eventUrl(last)} class="hero-last" data-date={last.id}>
+            {last.cover && <Image src={last.cover} alt="" width={128} height={128} fit="cover" quality={70} />}
+            <span class="hero-last-text">
+                <small><span class="hero-last-when">{upcoming ? 'Следваща среща' : 'Последна среща'}</span> · {formatDate(last.data.date)}</small>
+                <strong>{last.data.sessions[0]?.title}</strong>
+                <span class="hero-last-meta">{n} {n === 1 ? 'лекция' : 'лекции'}{venue && ` · ${venue}`}</span>
+            </span>
+            <svg aria-hidden="true"><use href="#icon-arrow"/></svg>
+        </a>
+    </div>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="line"></div>
 </section>
 
 <script is:inline>
-    // The page is static: flip "Следваща" to "Последна" once the featured meetup has passed.
-    document.querySelectorAll('.hero-event[data-date]').forEach(function (card) {
-        if (new Date(card.dataset.date + 'T23:59:59') < new Date()) card.querySelector('.hero-event-when').textContent = 'Последна среща';
+    // The page is static: flip "Следваща" to "Последна" once the meetup has passed.
+    document.querySelectorAll('.hero-last[data-date]').forEach(function (card) {
+        if (new Date(card.dataset.date + 'T23:59:59') < new Date()) card.querySelector('.hero-last-when').textContent = 'Последна среща';
     });
 </script>
