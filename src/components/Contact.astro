@@ -1,41 +1,61 @@
+---
+const EMAIL = 'contact@owasp.bg';
+const channels = [
+  { href: 'https://www.meetup.com/owasp-sofia-chapter/', icon: 'meetup', name: 'Meetup', desc: 'Срещи и регистрация' },
+  { href: 'https://luma.com/owasp-sofia', icon: 'luma', name: 'Luma', desc: 'Календар на събитията' },
+  { href: 'https://discord.com/channels/849266967856414731/981867323298312223', icon: 'discord', name: 'Discord', desc: 'Чат с общността' },
+  { href: 'https://owasp.org/slack/invite', icon: 'slack', name: 'Slack', desc: '#chapter-sofia в OWASP Slack' },
+  { href: 'https://sessionize.com/owasp-sofia/', icon: 'sessionize', name: 'Sessionize', desc: 'Предложи презентация' },
+  { href: 'https://www.linkedin.com/company/107314221/', icon: 'linkedin', name: 'LinkedIn', desc: 'Новини и покани' },
+  { href: 'https://www.facebook.com/owaspbg', icon: 'facebook', name: 'Facebook', desc: 'Новини и снимки' },
+  { href: 'https://github.com/owaspbg', icon: 'github', name: 'GitHub', desc: 'Кодът на сайта и проекти' },
+];
+---
 <section id="контакти">
     <div class="container">
         <div class="section-head">
             <p class="eyebrow">Контакти</p>
             <h2 class="section-title">Свържи се с общността</h2>
-            <p class="section-desc">Намери ни в каналите, които ползваш редовно.</p>
+            <p class="section-desc">Пиши ни директно или ни намери в каналите, които ползваш редовно.</p>
         </div>
+
+        <div class="contact-email glass-card">
+            <span class="contact-icon contact-icon-lg"><svg><use href="#icon-email"/></svg></span>
+            <div class="contact-email-text">
+                <h3>Пиши ни</h3>
+                <p>За домакинство на среща, партньорство, презентация или просто въпрос.</p>
+            </div>
+            <div class="contact-email-actions">
+                <a href={`mailto:${EMAIL}`} class="btn btn-primary"><svg><use href="#icon-email"/></svg>{EMAIL}</a>
+                <button type="button" class="btn btn-ghost contact-copy" data-copy={EMAIL} aria-label={`Копирай ${EMAIL}`}><svg><use href="#icon-copy"/></svg><span>Копирай</span></button>
+            </div>
+        </div>
+
         <div class="contact-links">
-            <a href="https://www.meetup.com/OWASP-Sofia-Chapter/" target="_blank" rel="noopener" class="contact-card">
-                <div class="icon">📅</div>
-                <h3>Meetup</h3>
-                <p>Събития и регистрация</p>
-            </a>
-            <a href="https://discord.com/channels/849266967856414731/981867323298312223" target="_blank" rel="noopener" class="contact-card">
-                <div class="icon"><svg><use href="#icon-discord"/></svg></div>
-                <h3>Discord</h3>
-                <p>Чат с общността</p>
-            </a>
-            <a href="https://owasp.org/slack/invite" target="_blank" rel="noopener" class="contact-card">
-                <div class="icon"><svg><use href="#icon-slack"/></svg></div>
-                <h3>Slack</h3>
-                <p>#chapter-sofia</p>
-            </a>
-            <a href="https://sessionize.com/owasp-sofia/" target="_blank" rel="noopener" class="contact-card">
-                <div class="icon">🎤</div>
-                <h3>Sessionize</h3>
-                <p>Предложи презентация</p>
-            </a>
-            <a href="https://www.linkedin.com/company/107314221/" target="_blank" rel="noopener" class="contact-card">
-                <div class="icon"><svg><use href="#icon-linkedin"/></svg></div>
-                <h3>LinkedIn</h3>
-                <p>Следвайте ни</p>
-            </a>
-            <a href="https://www.facebook.com/owaspbg" target="_blank" rel="noopener" class="contact-card">
-                <div class="icon"><svg><use href="#icon-facebook"/></svg></div>
-                <h3>Facebook</h3>
-                <p>Следвайте ни</p>
-            </a>
+            {channels.map((c) => (
+                <a href={c.href} target="_blank" rel="noopener" class="contact-card">
+                    <span class="contact-icon"><svg><use href={`#icon-${c.icon}`}/></svg></span>
+                    <span class="contact-card-text">
+                        <h3>{c.name}</h3>
+                        <p>{c.desc}</p>
+                    </span>
+                    <svg class="contact-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+                </a>
+            ))}
         </div>
     </div>
 </section>
+
+<script>
+    document.querySelectorAll<HTMLButtonElement>('.contact-copy').forEach((btn) =>
+        btn.addEventListener('click', async () => {
+            const label = btn.querySelector('span')!;
+            try {
+                await navigator.clipboard.writeText(btn.dataset.copy!);
+                label.textContent = 'Копирано ✓';
+            } catch {
+                label.textContent = btn.dataset.copy!;
+            }
+            setTimeout(() => (label.textContent = 'Копирай'), 2000);
+        }));
+</script>

@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { getEvents, formatDate, eventUrl, program, type Event } from '../lib/events';
 import { embedUrl, fileUrl, isPdf } from '../lib/media';
+import { breadcrumbs, eventSchema, eventDescription } from '../lib/schema';
 
 export async function getStaticPaths() {
   const events = await getEvents();
@@ -23,9 +24,11 @@ const cover = event.cover && (await getImage({ src: event.cover, width: 1200 }))
 const items = program(event);
 const timed = items.some((p) => p.time);
 const times = items.map((p) => p.time).filter(Boolean);
+const schema = [eventSchema(event, cover), breadcrumbs([['Начало', '/'], ['Събития', '/events/'], [event.title, eventUrl(event)]])];
+const summary = [formatDate(date), location].filter(Boolean).join(', ') + '. ' + eventDescription(event);
 const hours = times.length > 1 ? `${times[0]} – ${times.at(-1)} ч.` : times[0] && `${times[0]} ч.`;
 ---
-<Base title={event.title} description={`${formatDate(date)} · ${sessions.map((s) => s.title).join(' · ')}`} image={cover}>
+<Base title={event.title} description={summary} image={cover} imageAlt={`Банер на ${event.title}`} type="article" schema={schema}>
     <section class="page-hero">
         <div class="container event-hero">
           <div>

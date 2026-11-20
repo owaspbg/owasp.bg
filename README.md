@@ -78,6 +78,23 @@ Short overview of the event (Markdown), shown above the program.
 - Photos are resized and converted to WebP at build time. Still, shrink them to ~2500px before committing to keep the repo small.
 - Photos open in a lightbox (arrows, swipe, Esc).
 
+## SEO and LLM discoverability
+
+Generated on every build from the event content and `src/lib/site.ts` (name, email, links, leaders):
+
+| URL | What |
+|-----|------|
+| `/sitemap.xml` | all pages and events (`src/pages/sitemap.xml.ts`) |
+| `/robots.txt` | allows all crawlers, including AI search bots (`public/robots.txt`) |
+| `/llms.txt` | short site summary + every event, per [llmstxt.org](https://llmstxt.org) (`src/pages/llms.txt.ts`) |
+| `/llms-full.txt` | all events with full programs in one file |
+| `/<event>.md` | markdown twin of each event page (`src/pages/[slug].md.ts`) |
+
+Every page has a canonical URL, Open Graph/Twitter tags and a JSON-LD graph (`src/lib/schema.ts`):
+Organization + WebSite everywhere, `Event` (time, venue, hosts, speakers, slides, recording) on event pages,
+`FAQPage` on /about/ (questions in `src/lib/faq.ts`), and breadcrumbs. Validate with
+[Google's Rich Results Test](https://search.google.com/test/rich-results) after deploying.
+
 ## Development
 
 ```bash

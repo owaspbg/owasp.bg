@@ -1,12 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro';
 import EventCard from '../../components/EventCard.astro';
-import { getEvents } from '../../lib/events';
+import { getEvents, eventUrl } from '../../lib/events';
+import { abs } from '../../lib/site';
+import { breadcrumbs } from '../../lib/schema';
 
 const events = await getEvents();
+const schema = [
+  breadcrumbs([['Начало', '/'], ['Събития', '/events/']]),
+  { '@type': 'ItemList', name: 'Срещи на OWASP Sofia', itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(eventUrl(e)), name: e.title })) },
+];
 const years = [...new Set(events.map((e) => e.data.date.getUTCFullYear()))];
 ---
-<Base title="Събития" description="Всички срещи на OWASP Sofia — програма, лектори, презентации, записи и снимки.">
+<Base title="Събития" description="Всички срещи на OWASP Sofia от 2019 г. насам — програма по часове, лектори, презентации, записи и снимки от всяка среща." schema={schema}>
     <section class="page-hero">
         <div class="container">
             <p class="eyebrow">Събития</p>

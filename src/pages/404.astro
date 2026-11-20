@@ -8,7 +8,7 @@ const latest = events.slice(0, 3);
 // Lets old date-based links (/events/2026-09-23/) land on the event's current page
 const byDate = Object.fromEntries(events.map((e) => [e.id, eventUrl(e)]));
 ---
-<Base title="Страницата не е намерена" description="Тази страница не съществува. Разгледай срещите и ресурсите на OWASP Sofia.">
+<Base noindex title="Страницата не е намерена" description="Тази страница не съществува. Разгледай срещите и ресурсите на OWASP Sofia.">
     <section class="page-hero not-found">
         <div class="container">
             <div class="not-found-code" aria-hidden="true">404</div>
