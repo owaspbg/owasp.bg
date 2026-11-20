@@ -258,33 +258,35 @@ nav.primary a:hover svg { opacity: 1; }
 .hero-link svg { width: 16px; height: 16px; fill: currentColor; }
 .hero-link:hover { color: #fff; opacity: 1; }
 
-/* Small "last meetup" card tucked onto the Sofia image */
-.hero-last {
-    position: absolute;
-    left: 28px;
-    bottom: -64px;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    max-width: 420px;
-    padding: 10px 16px 10px 10px;
-    border-radius: 18px;
+/* Featured meetup card */
+.hero-event {
+    position: relative;
+    z-index: 1;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
     border: 1px solid var(--card-border);
-    background: rgba(16, 0, 47, 0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-    transition: transform 0.25s, border-color 0.25s;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45), 0 0 80px rgba(255, 45, 214, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
-.hero-last:hover { transform: translateY(-3px); border-color: var(--cyan); opacity: 1; }
-.hero-last img { flex: none; width: 64px; height: 64px; border-radius: 12px; object-fit: cover; }
-.hero-last-text { display: grid; gap: 2px; min-width: 0; }
-.hero-last small { white-space: nowrap; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
-.hero-last strong { font-size: 0.92rem; line-height: 1.3; color: #fff; }
-.hero-last-meta { font-size: 0.8rem; color: var(--text-dim); }
-.hero-last > svg { flex: none; width: 16px; height: 16px; color: var(--text-dim); }
-.hero-last:hover > svg { color: var(--cyan); }
+.hero-event:hover { transform: translateY(-4px); border-color: var(--cyan); opacity: 1; box-shadow: 0 36px 100px rgba(0, 0, 0, 0.5), 0 0 90px rgba(35, 216, 255, 0.18); }
+.hero-event-cover { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.hero-event-body { padding: 22px 24px 24px; }
+.hero-event-label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+.hero-event-when { padding: 4px 10px; border-radius: 999px; background: rgba(35, 216, 255, 0.12); border: 1px solid rgba(35, 216, 255, 0.35); color: var(--cyan); }
+.hero-event-venue { display: flex; align-items: center; gap: 6px; margin-top: 10px; color: var(--text-dim); font-size: 0.9rem; }
+.hero-event-venue svg { fill: currentColor; }
+.hero-event-talks { list-style: none; display: grid; gap: 10px; margin: 16px 0 18px; padding-top: 16px; border-top: 1px solid var(--card-border); }
+.hero-event-talks li { display: grid; gap: 2px; }
+.hero-event-talks strong { font-size: 0.95rem; line-height: 1.35; font-weight: 700; color: #fff; }
+.hero-event-talks span { font-size: 0.82rem; color: var(--text-dim); }
+.hero-event-cta { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.9rem; color: var(--cyan); }
+.hero-event-cta svg { transition: transform 0.2s; }
+.hero-event:hover .hero-event-cta svg { transform: translate(2px, -2px); }
+
 
 @media (max-width: 560px) {
     .hero-stats { display: grid; grid-template-columns: repeat(2, max-content); column-gap: 48px; row-gap: 22px; }
@@ -845,8 +847,7 @@ section.community-section { padding: clamp(56px, 7vw, 100px) 0; border-top: 1px 
 @media (max-width: 900px) {
     .hero { grid-template-columns: minmax(0, 1fr); min-height: auto; gap: 24px; }
     .hero-art { order: -1; max-width: 480px; margin: 0 auto; }
-    .hero-last { position: relative; left: auto; bottom: auto; margin: 14px auto 0; max-width: none; }
-    .hero-last small { white-space: normal; }
+    .hero-event { max-width: 560px; }
     .line { opacity: 0.4; }
     .content-layout { grid-template-columns: 1fr; gap: 28px; padding: 24px 0 60px; }
     .toc { position: static; }
