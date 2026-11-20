@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import { formatDate, type Event } from '../lib/events';
+import { formatDate, eventUrl, type Event } from '../lib/events';
 interface Props { event: Event }
 const { event } = Astro.props;
 const { date, sessions, recording } = event.data;
 const hasVideo = !!recording || sessions.some((s) => s.video);
 ---
-<a href={`/events/${event.id}/`} class="event-card">
+<a href={eventUrl(event)} class="event-card">
     <div class="event-cover">
         {event.cover
             ? <Image src={event.cover} alt="" width={640} quality={70} />

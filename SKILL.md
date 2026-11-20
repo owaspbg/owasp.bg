@@ -10,7 +10,7 @@ Static website for OWASP Sofia (Bulgarian OWASP chapter), hosted via GitHub Page
 - Shared CSS in `src/styles/global.css`; layout in `src/layouts/Base.astro`
 - Font: Inter (Google Fonts)
 - SVG icons are inlined via a hidden SVG sprite (`src/components/Sprite.astro`, no icon libraries)
-- Events are content folders in `src/content/events/<YYYY-MM-DD>/` (index.md + optional cover and gallery/)
+- Events are content folders in `src/content/events/<YYYY-MM-DD>/` (index.md + optional cover and gallery/); each is served at `/<month>-<year>-meetup/`
 - Only JS dependency is pdf.js, lazy-loaded by the slide viewer
 
 ## Design

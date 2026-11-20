@@ -1,5 +1,9 @@
+---
+import Subscribe from './Subscribe.astro';
+---
 <footer>
     <div class="container">
+        <Subscribe />
         <div class="footer-inner">
             <div style="max-width: 600px;">
                 <p>&copy; 2019&ndash;2026 OWASP Sofia Chapter. Част от <a href="https://owasp.org/" target="_blank" rel="noopener">OWASP Foundation, Inc.</a></p>
@@ -14,13 +18,17 @@
                     и LASCON са търговски марки на OWASP Foundation, Inc.
                 </p>
             </div>
-            <div style="text-align: right;">
-                <div class="footer-social" style="justify-content: flex-end; margin-bottom: 16px;">
+            <div class="footer-right">
+                <div class="footer-social">
                     <a href="https://www.linkedin.com/company/107314221/" target="_blank" rel="noopener" title="LinkedIn"><svg class="icon-svg"><use href="#icon-linkedin"/></svg></a>
                     <a href="https://www.facebook.com/owaspbg" target="_blank" rel="noopener" title="Facebook"><svg class="icon-svg"><use href="#icon-facebook"/></svg></a>
                     <a href="https://discord.com/channels/849266967856414731/981867323298312223" target="_blank" rel="noopener" title="Discord"><svg class="icon-svg"><use href="#icon-discord"/></svg></a>
+                    <a href="https://www.meetup.com/owasp-sofia-chapter/" target="_blank" rel="noopener" title="Meetup" aria-label="Meetup"><svg class="icon-svg"><use href="#icon-meetup"/></svg></a>
+                    <a href="https://luma.com/owasp-sofia" target="_blank" rel="noopener" title="Luma" aria-label="Luma"><svg class="icon-svg"><use href="#icon-luma"/></svg></a>
+                    <a href="https://github.com/owaspbg" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><svg class="icon-svg"><use href="#icon-github"/></svg></a>
+                    <a href="mailto:contact@owasp.bg" title="contact@owasp.bg" aria-label="Имейл: contact@owasp.bg"><svg class="icon-svg"><use href="#icon-email"/></svg></a>
                 </div>
-                <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+                <div class="footer-links">
                     <a href="/policies/">Правила и очаквания</a>
                     <a href="/policies/#code-of-conduct">Кодекс на поведение</a>
                     <a href="/policies/#hosting">Домакинство</a>

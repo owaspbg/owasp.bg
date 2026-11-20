@@ -1,0 +1,19 @@
+---
+import { FAQ } from '../lib/faq';
+---
+<section id="въпроси">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Въпроси</p>
+            <h2 class="section-title">Често задавани въпроси</h2>
+        </div>
+        <div class="faq">
+            {FAQ.map(({ q, a }, i) => (
+                <details class="faq-item" open={i === 0}>
+                    <summary>{q}</summary>
+                    <p>{a}</p>
+                </details>
+            ))}
+        </div>
+    </div>
+</section>

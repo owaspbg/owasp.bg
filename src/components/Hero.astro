@@ -1,3 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import { formatDate, eventUrl, type Event } from '../lib/events';
+import { SITE } from '../lib/site';
+
+interface Props { events: Event[] }
+const { events } = Astro.props;
+const last = events[0];
+const talks = events.reduce((n, e) => n + e.data.sessions.length, 0);
+const speakers = new Set(events.flatMap((e) => e.data.sessions.map((s) => s.speaker))).size;
+const years = new Date().getFullYear() - Math.min(...events.map((e) => e.data.date.getUTCFullYear()));
+const upcoming = last.data.date.getTime() + 86_400_000 > Date.now();
+---
 <section class="hero">
     <div class="hero-copy">
         <p class="eyebrow">Open Worldwide Application Security Project</p>
@@ -7,27 +20,39 @@
             за сигурност на софтуера. Безплатни срещи, практични презентации и отворено сътрудничество.
         </p>
         <div class="hero-buttons">
-            <a href="https://www.meetup.com/owasp-sofia-chapter/events/?type=upcoming" target="_blank" rel="noopener" class="btn btn-primary">
-                <svg><use href="#icon-calendar"/></svg>Следващо събитие
+            <a href={`${SITE.links.meetup}events/?type=upcoming`} target="_blank" rel="noopener" class="btn btn-primary">
+                <svg><use href="#icon-calendar"/></svg>Следваща среща
             </a>
-            <a href="/events/" class="btn btn-ghost">
-                <svg><use href="#icon-archive"/></svg>Минали събития
-            </a>
-            <a href="https://forms.gle/1XCeTUD3yrdQehu56" target="_blank" rel="noopener" class="btn btn-primary btn-glow">
-                <svg><use href="#icon-mic"/></svg>Изнеси презентация
+            <a href="/events/" class="btn btn-ghost"><svg><use href="#icon-archive"/></svg>Минали срещи</a>
+            <a href="https://forms.gle/1XCeTUD3yrdQehu56" target="_blank" rel="noopener" class="hero-link">
+                <svg><use href="#icon-mic"/></svg>Изнеси презентация →
             </a>
         </div>
         <div class="hero-stats">
-            <div class="hero-stat"><strong>30+</strong><span>Презентации</span></div>
-            <div class="hero-stat"><strong>35+</strong><span>Лектори</span></div>
-            <div class="hero-stat"><strong>7</strong><span>Години</span></div>
-            <div class="hero-stat"><strong>100%</strong><span>Безплатно</span></div>
+            <div class="hero-stat"><strong>{talks}</strong><span>Презентации</span></div>
+            <div class="hero-stat"><strong>{speakers}</strong><span>Лектора</span></div>
+            <div class="hero-stat"><strong>{years}+</strong><span>Години</span></div>
+            <div class="hero-stat"><strong>{SITE.members}</strong><span>Членове</span></div>
         </div>
     </div>
-    <div class="hero-art">
-        <img src="/assets/hero-statue.png" alt="OWASP Sofia — стилизирана статуя на София">
-    </div>
+    <a href={eventUrl(last)} class="hero-event" data-date={last.id} aria-label={`${last.title} — програма и материали`}>
+        {last.cover && (
+            <Image src={last.cover} alt={`Банер на ${last.title}`} width={720} quality={80} loading="eager" fetchpriority="high" class="hero-event-cover" />
+        )}
+        <span class="hero-event-label">
+            <span class="hero-event-when">{upcoming ? 'Следваща среща' : 'Последна среща'}</span>
+            <time datetime={last.id}>{formatDate(last.data.date)}</time>
+            <svg class="icon-svg-sm" aria-hidden="true"><use href="#icon-arrow"/></svg>
+        </span>
+    </a>
     <div class="orb orb-a"></div>
     <div class="orb orb-b"></div>
     <div class="line"></div>
 </section>
+
+<script is:inline>
+    // The page is static: flip "Следваща" to "Последна" once the meetup has passed.
+    document.querySelectorAll('.hero-event[data-date]').forEach(function (card) {
+        if (new Date(card.dataset.date + 'T23:59:59') < new Date()) card.querySelector('.hero-event-when').textContent = 'Последна среща';
+    });
+</script>

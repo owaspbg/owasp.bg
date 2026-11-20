@@ -1,0 +1,20 @@
+# OWASP Sofia — https://owasp.bg
+User-agent: *
+Allow: /
+
+# AI assistants and AI search are welcome. Site summary for LLMs: https://owasp.bg/llms.txt
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://owasp.bg/sitemap.xml

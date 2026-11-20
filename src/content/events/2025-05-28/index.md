@@ -1,17 +1,45 @@
 ---
 date: 2025-05-28
+location: "Progress, бул. Цариградско шосе 54Б"
+locationUrl: "https://maps.app.goo.gl/unHVZspnrL83gLq79"
+hosts:
+  - name: "Progress"
+    url: "https://www.progress.com/"
+meetup: "https://www.meetup.com/owasp-sofia-chapter/events/307509140/"
 recording: "https://youtu.be/P1_o0204OPk"
+agenda:
+  - time: "19:00"
+    title: "Начало и въведение"
+    speaker: "Todor Todorov"
+    speakerUrl: "https://todorov.bg/"
+    company: "Payhawk"
+    companyUrl: "https://payhawk.com/"
+  - time: "21:30"
+    title: "Q&A и networking"
+  - time: "22:00"
+    title: "Закриване"
 sessions:
-  - title: "How to fail with .NET reflection 101"
+  - time: "19:15"
+    title: "How to fail with .NET reflection 101"
     speaker: "Ivan Ivanov"
     speakerUrl: "https://www.linkedin.com/in/ivan-ivanov-94365653"
+    company: "Progress"
+    companyUrl: "https://www.progress.com/"
     slides: "/assets/presentations/202505 - How to fail with .NET reflection 101 by Ivan Ivanov.pdf"
-  - title: "Effective Threat Modelling"
+  - time: "20:00"
+    title: "Effective Threat Modelling"
     speaker: "Yordan Popov (Dan Ny)"
     speakerUrl: "https://www.linkedin.com/in/dan-ny/"
+    company: "Scalefocus"
+    companyUrl: "https://www.scalefocus.com/"
     slides: "/assets/presentations/202505 - Effective Threat Modelling by Yordan Popov (Dan Ny).pdf"
-  - title: "Scoring Vulnerabilities using CVSS"
+  - time: "20:45"
+    title: "Scoring Vulnerabilities using CVSS"
     speaker: "Martin Georgiev"
     speakerUrl: "https://www.linkedin.com/in/martin-georgiev/"
+    company: "VMware Carbon Black"
+    companyUrl: "https://www.broadcom.com/products/carbon-black"
     slides: "/assets/presentations/202505 - Scoring Vulnerabilities using CVSS by Martin Georgiev.pdf"
 ---
+
+Пролетна среща в офиса на Progress с теми за threat modelling, оценката на уязвимости с CVSS и капаните на .NET reflection.
