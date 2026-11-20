@@ -6,16 +6,17 @@ import Leaders from '../components/Leaders.astro';
 import EventCard from '../components/EventCard.astro';
 import { getEvents } from '../lib/events';
 
-const latest = (await getEvents()).slice(0, 3);
+const events = await getEvents();
+const latest = events.slice(1, 4); // the newest one is featured in the hero
 ---
 <Base>
-    <Hero />
+    <Hero events={events} />
     <section>
         <div class="container">
             <div class="section-head section-head-row">
                 <div>
                     <p class="eyebrow">Събития</p>
-                    <h2 class="section-title">Последни срещи</h2>
+                    <h2 class="section-title">Предишни срещи</h2>
                 </div>
                 <a href="/events/" class="btn btn-ghost">Всички събития →</a>
             </div>
