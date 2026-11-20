@@ -8,28 +8,72 @@ OWASP Sofia is the first and only OWASP chapter in Bulgaria — a community of c
 
 ## Structure
 
-Single-page static HTML website (no build tools, no dependencies):
+[Astro](https://astro.build) static site. Every page shares `src/layouts/Base.astro` (nav, footer, SVG icons) and `src/styles/global.css`.
 
-- **Header** — sticky navigation with OWASP logo
-- **Hero** — chapter introduction with key stats
-- **About** — what is OWASP + Sofia chapter mission
-- **Events** — full archive of past presentations with links to slides, video recordings, and speaker LinkedIn profiles
-- **Resources** — key OWASP projects (Top 10, ASVS, Testing Guide, Cheat Sheets, SAMM, ZAP), some translated to Bulgarian
-- **Team** — current chapter leaders with LinkedIn/email, acknowledgment of past leaders
-- **Contact** — Meetup, Discord, Sessionize, LinkedIn, Facebook
-- **Footer** — social icons (LinkedIn, Facebook, Discord, Slack), policies
+| Page | Source |
+|------|--------|
+| `/` — hero, latest events, about, newsletter | `src/pages/index.astro` |
+| `/events/` — all meetups by year | `src/pages/events/index.astro` |
+| `/events/<date>/` — program, speakers, slides, recording, photos | `src/pages/events/[slug].astro` |
+| `/resources/` — OWASP projects + Top 10 | `src/pages/resources.astro` |
+| `/about/` — about, team, partners | `src/pages/about.astro` |
+| `/contact/` — channels + newsletter | `src/pages/contact.astro` |
+| `/policies/` — rules and expectations | `src/pages/policies.astro` |
+| `/top10.html` — interactive Top 10 history (static file) | `public/top10.html` |
+
+Static files (slides, logos, templates) live in `public/` and are served as-is, e.g. `public/assets/presentations/x.pdf` → `/assets/presentations/x.pdf`.
+
+## Adding or editing an event
+
+Each event is a folder named after its date:
+
+```
+src/content/events/2026-04-30/
+├── index.md      # program (required)
+├── cover.jpg     # card image (optional; falls back to the first photo, then to the date)
+└── gallery/      # photos (optional) — just drop .jpg/.png/.webp files here
+```
+
+`index.md`:
+
+```markdown
+---
+date: 2026-04-30
+title: "OWASP Sofia Meetup · април 2026"   # optional, generated from the date
+location: "Progress, бул. Цариградско шосе 54Б"   # optional
+meetup: "https://www.meetup.com/owasp-sofia-chapter/events/..."   # optional
+recording: "https://youtu.be/..."   # optional, one video for the whole event (embedded on the page)
+sessions:
+  - title: "Talk title"
+    speaker: "Name Surname"
+    speakerUrl: "https://www.linkedin.com/in/..."   # optional
+    abstract: "One paragraph."   # optional
+    slides: "/assets/presentations/202604 - Talk by Name.pdf"   # optional: a PDF in public/ or any URL
+    video: "https://youtu.be/...?t=120"   # optional, per-talk video (YouTube or Google Drive)
+---
+
+Optional free-text description of the event (Markdown).
+```
+
+- PDF slides open in an in-page viewer (pdf.js, works on phones) and can be downloaded.
+- YouTube links (incl. `t=` start time) and Google Drive links are embedded; other links open in a new tab.
+- Photos are resized and converted to WebP at build time. Still, shrink them to ~2500px before committing to keep the repo small.
+- Photos open in a lightbox (arrows, swipe, Esc).
 
 ## Development
 
-No build step required. Open `index.html` in a browser or serve with any static server:
-
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev      # http://localhost:4321
+npm test         # unit tests for the link helpers
+npm run build    # static site in dist/
 ```
 
 ## Hosting
 
-Deployed via GitHub Pages. The site is served from the `main` branch root.
+GitHub Pages, deployed by `.github/workflows/deploy.yml` on every push to `main`
+(Settings → Pages → Source must be **GitHub Actions**). `public/CNAME` keeps the `owasp.bg` domain.
+Pull requests run the tests and build without deploying.
 
 ## Links
 

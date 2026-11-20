@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import Sprite from '../components/Sprite.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title?: string; description?: string; image?: string }
+const { title, description = 'OWASP Sofia - българската OWASP общност. Open Worldwide Application Security Project. Киберсигурност, образование и споделяне на знания.', image } = Astro.props;
+const fullTitle = title ? `${title} | OWASP Sofia` : 'OWASP Sofia | България';
+const path = Astro.url.pathname;
+const nav = [
+  ['/events/', 'icon-calendar', 'Събития'],
+  ['/resources/', 'icon-book', 'Ресурси'],
+  ['/resources/#top10', 'icon-shield', 'Top 10'],
+  ['/about/', 'icon-users', 'За нас'],
+  ['/contact/', 'icon-mail', 'Контакти'],
+];
+---
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{fullTitle}</title>
+    <meta name="description" content={description}>
+    <meta property="og:title" content={fullTitle}>
+    <meta property="og:description" content={description}>
+    {image && <meta property="og:image" content={new URL(image, Astro.site)}>}
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script is:inline defer src="https://umami.miglen.com/script.js" data-website-id="82faab38-3cc8-4d91-af9a-f6213b3c3287"></script>
+</head>
+<body>
+<Sprite />
+<header class="nav">
+    <a href="/" class="brand"><img src="/assets/images/owasp-logo.svg" alt="OWASP Sofia — начало"></a>
+    <button class="nav-toggle" aria-label="Меню" aria-expanded="false" onclick="this.setAttribute('aria-expanded', document.querySelector('nav.primary').classList.toggle('open'))">
+        <span></span><span></span><span></span>
+    </button>
+    <nav class="primary">
+        {nav.map(([href, icon, label]) => (
+            <a href={href} aria-current={path.startsWith(href) && !href.includes('#') ? 'page' : undefined}><svg><use href={`#${icon}`}/></svg>{label}</a>
+        ))}
+    </nav>
+</header>
+<main>
+    <slot />
+</main>
+<Footer />
+</body>
+</html>

@@ -6,25 +6,25 @@ Static website for OWASP Sofia (Bulgarian OWASP chapter), hosted via GitHub Page
 
 ## Tech Stack
 
-- Single-file static HTML (`index.html`) — no frameworks, no build tools
-- CSS is inline in `<style>` tags
-- Font: Roboto (Google Fonts) — same as owasp.org
-- SVG icons are inlined via a hidden SVG sprite (no external icon libraries)
-- No JavaScript dependencies
+- Astro static site (see README for the page map); build with `npm run build`, test with `npm test`
+- Shared CSS in `src/styles/global.css`; layout in `src/layouts/Base.astro`
+- Font: Inter (Google Fonts)
+- SVG icons are inlined via a hidden SVG sprite (`src/components/Sprite.astro`, no icon libraries)
+- Events are content folders in `src/content/events/<YYYY-MM-DD>/` (index.md + optional cover and gallery/)
+- Only JS dependency is pdf.js, lazy-loaded by the slide viewer
 
 ## Design
 
-- Header color: `rgb(152, 175, 199)` — matches owasp.org
-- Dark color: `#233040`
-- Font: Roboto 300/400/500/700
+- Dark "cosmic neon" theme: background `#10002f`, accents pink `#ff2dd6`, violet `#7b3cff`, cyan `#23d8ff`
+- Font: Inter 400–900
 - Responsive: mobile breakpoint at 768px
 - All content is in Bulgarian
 
 ## Key Conventions
 
-- The OWASP logo in the header links to the top of the page, with no text next to it
+- The OWASP logo in the header links to the home page, with no text next to it
 - Do not use "локална глава" (local chapter) — it doesn't make sense in Bulgarian context
-- Event presentations link to PDF slides in `./assets/presentations/`
+- Event presentations are PDFs in `public/assets/presentations/`, referenced from the event's `index.md` as `/assets/presentations/<file>.pdf`
 - Speaker names link to their LinkedIn profiles where available
 - Leader cards use icon buttons (LinkedIn + email) instead of displaying email addresses as text
 - Chapter social links: LinkedIn company page, Facebook page, Discord, OWASP Slack
@@ -32,8 +32,8 @@ Static website for OWASP Sofia (Bulgarian OWASP chapter), hosted via GitHub Page
 ## Content Sources
 
 - Event data and leader info sourced from: https://owasp.org/www-chapter-sofia/
-- Presentation slides stored in: `./assets/presentations/`
-- Video recordings hosted on YouTube and Google Drive
+- Presentation slides stored in: `public/assets/presentations/`
+- Video recordings hosted on YouTube (older ones on Google Drive); both embed on the event page
 
 ## Links Reference
 
