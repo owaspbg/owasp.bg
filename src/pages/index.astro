@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Subscribe from '../components/Subscribe.astro';
+import EventCard from '../components/EventCard.astro';
+import { getEvents } from '../lib/events';
+
+const latest = (await getEvents()).slice(0, 3);
+---
+<Base>
+    <Hero />
+    <section>
+        <div class="container">
+            <div class="section-head section-head-row">
+                <div>
+                    <p class="eyebrow">Събития</p>
+                    <h2 class="section-title">Последни срещи</h2>
+                </div>
+                <a href="/events/" class="btn btn-ghost">Всички събития →</a>
+            </div>
+            <div class="events-grid">{latest.map((e) => <EventCard event={e} />)}</div>
+        </div>
+    </section>
+    <About />
+    <Subscribe />
+</Base>

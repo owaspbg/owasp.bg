@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import { formatDate, type Event } from '../lib/events';
+interface Props { event: Event }
+const { event } = Astro.props;
+const { date, sessions, recording } = event.data;
+const hasVideo = !!recording || sessions.some((s) => s.video);
+---
+<a href={`/events/${event.id}/`} class="event-card">
+    <div class="event-cover">
+        {event.cover
+            ? <Image src={event.cover} alt="" width={640} quality={70} />
+            : <span class="event-cover-date">{date.getUTCDate()}<small>{date.toLocaleDateString('bg-BG', { month: 'long', timeZone: 'UTC' })}</small></span>}
+    </div>
+    <div class="event-body">
+        <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
+        <h3>{event.title}</h3>
+        <ul class="event-talks">{sessions.slice(0, 3).map((s) => <li>{s.title} <span>— {s.speaker}</span></li>)}</ul>
+        <div class="event-badges">
+            <span class="badge">{sessions.length} {sessions.length === 1 ? 'лекция' : 'лекции'}</span>
+            {hasVideo && <span class="badge badge-video">Видео</span>}
+            {event.gallery.length > 0 && <span class="badge badge-slides">{event.gallery.length} снимки</span>}
+        </div>
+    </div>
+</a>

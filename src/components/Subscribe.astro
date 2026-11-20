@@ -1,0 +1,65 @@
+<section id="абонамент">
+    <div class="container">
+        <div class="subscribe-card">
+            <h2>Бъди в течение</h2>
+            <p>
+                Абонирай се за бюлетина, за да получаваш покани за бъдещи събития,
+                новини от общността и нови ресурси по сигурност.
+            </p>
+            <form class="htc-subscribe" data-source="owaspbg-home">
+                <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+                <button type="submit">Абонирай се</button>
+                <span class="htc-msg" aria-live="polite"></span>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    // Subscribe form handler
+    (function () {
+        document.querySelectorAll('form.htc-subscribe').forEach(function (form) {
+            var msg = form.querySelector('.htc-msg');
+            var btn = form.querySelector('button');
+            var source = form.dataset.source || 'unknown';
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                msg.textContent = '';
+                msg.style.color = '';
+
+                var payload = { source: source };
+                new FormData(form).forEach(function (value, key) {
+                    var v = String(value).trim();
+                    if (v) payload[key] = v;
+                });
+
+                if (!payload.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+                    msg.textContent = 'Моля, въведи валиден имейл адрес.';
+                    msg.style.color = '#ff8888';
+                    return;
+                }
+
+                btn.disabled = true;
+                try {
+                    var res = await fetch('https://www.hackertociso.com/api/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) {
+                        msg.textContent = '✓ Благодарим! Вписан си в списъка.';
+                        msg.style.color = '#7fffa6';
+                        form.reset();
+                    } else {
+                        msg.textContent = 'Нещо се обърка. Опитай отново.';
+                        msg.style.color = '#ff8888';
+                    }
+                } catch (err) {
+                    msg.textContent = 'Мрежова грешка. Опитай отново.';
+                    msg.style.color = '#ff8888';
+                }
+                finally { btn.disabled = false; }
+            });
+        });
+    })();
+</script>

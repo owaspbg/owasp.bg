@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import EventCard from '../../components/EventCard.astro';
+import { getEvents } from '../../lib/events';
+
+const events = await getEvents();
+const years = [...new Set(events.map((e) => e.data.date.getUTCFullYear()))];
+---
+<Base title="Събития" description="Всички срещи на OWASP Sofia — програма, лектори, презентации, записи и снимки.">
+    <section class="page-hero">
+        <div class="container">
+            <p class="eyebrow">Събития</p>
+            <h1>Срещи и архив</h1>
+            <p>Всяка среща има собствена страница с програма, лектори, презентации, запис и снимки.</p>
+            <nav class="year-nav" aria-label="Години">
+                {years.map((y) => <a href={`#y${y}`}>{y}</a>)}
+                <a href="https://www.meetup.com/owasp-sofia-chapter/events/?type=upcoming" target="_blank" rel="noopener" class="btn btn-primary">Следващо събитие →</a>
+            </nav>
+        </div>
+    </section>
+    <div class="container">
+        {years.map((y) => (
+            <section class="year-group" id={`y${y}`}>
+                <h2 class="year-title">{y}</h2>
+                <div class="events-grid">
+                    {events.filter((e) => e.data.date.getUTCFullYear() === y).map((e) => <EventCard event={e} />)}
+                </div>
+            </section>
+        ))}
+    </div>
+</Base>

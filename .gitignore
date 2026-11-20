@@ -7,3 +7,6 @@ docs/
 
 # Local Claude Code config
 .claude/launch.json
+node_modules/
+dist/
+.astro/
