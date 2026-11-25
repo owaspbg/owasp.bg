@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import { getEvents, formatDate, eventUrl, program, type Event } from '../lib/events';
 import { embedUrl, fileUrl, isPdf } from '../lib/media';
 import { breadcrumbs, eventSchema, eventDescription } from '../lib/schema';
+import { SITE } from '../lib/site';
 
 export async function getStaticPaths() {
   const events = await getEvents();
@@ -16,7 +17,8 @@ export async function getStaticPaths() {
 
 interface Props { event: Event; newer?: Event; older?: Event }
 const { event, newer, older } = Astro.props;
-const { date, location, locationUrl, hosts, meetup, recording, sessions } = event.data;
+const { date, location, locationUrl, hosts, partners, meetup, registration, recording, sessions } = event.data;
+const upcoming = event.upcoming;
 const { Content } = await render(event);
 const recordingEmbed = recording && embedUrl(recording);
 const photos = await Promise.all(event.gallery.map(async (img) => ({ img, full: (await getImage({ src: img, width: 1920, quality: 80 })).src })));
@@ -33,6 +35,7 @@ const hours = times.length > 1 ? `${times[0]} – ${times.at(-1)} ч.` : times[0
         <div class="container event-hero">
           <div>
             <div class="breadcrumb"><a href="/events/">Събития</a> &nbsp;/&nbsp; {formatDate(date)}</div>
+            {upcoming && <p class="event-status" data-date={event.id}>Предстояща среща</p>}
             <h1>{event.title}</h1>
             <ul class="event-meta">
                 <li><svg class="icon-svg-sm"><use href="#icon-calendar"/></svg><span><time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>{hours && <>, {hours}</>}</span></li>
@@ -42,12 +45,20 @@ const hours = times.length > 1 ? `${times[0]} – ${times.at(-1)} ч.` : times[0
                         {hosts.map((h, i) => <>{i > 0 && ' и '}{h.url ? <a href={h.url} target="_blank" rel="noopener">{h.name}</a> : h.name}</>)}</span>
                     </li>
                 )}
+                {partners.length > 0 && (
+                    <li><svg class="icon-svg-sm"><use href="#icon-users"/></svg><span>Съвместно с{' '}
+                        {partners.map((h, i) => <>{i > 0 && ' и '}{h.url ? <a href={h.url} target="_blank" rel="noopener">{h.name}</a> : h.name}</>)}</span>
+                    </li>
+                )}
+                {upcoming && <li><svg class="icon-svg-sm"><use href="#icon-shield"/></svg><span>Участието е безплатно</span></li>}
             </ul>
             <nav class="event-jump">
+                {upcoming && registration && <a href={registration} target="_blank" rel="noopener" class="btn btn-primary"><svg><use href="#icon-luma"/></svg>Регистрация в Luma →</a>}
+                {upcoming && meetup && <a href={meetup} target="_blank" rel="noopener" class={registration ? 'btn btn-ghost' : 'btn btn-primary'}><svg><use href="#icon-meetup"/></svg>Meetup →</a>}
                 <a href="#program" class="btn btn-ghost">Програма</a>
                 {recording && <a href="#recording" class="btn btn-ghost"><svg><use href="#icon-play"/></svg>Запис</a>}
                 {photos.length > 0 && <a href="#gallery" class="btn btn-ghost"><svg><use href="#icon-image"/></svg>Снимки ({photos.length})</a>}
-                {meetup && <a href={meetup} target="_blank" rel="noopener" class="btn btn-primary">Meetup →</a>}
+                {!upcoming && meetup && <a href={meetup} target="_blank" rel="noopener" class="btn btn-primary">Meetup →</a>}
             </nav>
           </div>
           {event.cover && <Image src={event.cover} alt={`Банер на ${event.title}`} width={720} quality={80} class="event-hero-cover" loading="eager" />}
@@ -68,6 +79,13 @@ const hours = times.length > 1 ? `${times[0]} – ${times.at(-1)} ч.` : times[0
 
         <section id="program" class="event-section">
             <h2 class="section-title">Програма</h2>
+            {sessions.length === 0 && (
+                <p class="program-tba glass-card">
+                    <strong>Лекторите предстои да бъдат обявени.</strong>
+                    Следи {meetup ? <a href={meetup} target="_blank" rel="noopener">Meetup</a> : 'Meetup'}{registration && <> или <a href={registration} target="_blank" rel="noopener">Luma</a></>} за новини.
+                    Искаш да говориш? <a href={SITE.links.sessionize} target="_blank" rel="noopener">Предложи тема в Sessionize →</a>
+                </p>
+            )}
             <ol class:list={['sessions', { timed }]}>
                 {items.map((s) => {
                     const who = s.speaker && (
@@ -148,6 +166,10 @@ const hours = times.length > 1 ? `${times[0]} – ${times.at(-1)} ч.` : times[0
 </Base>
 
 <script>
+    document.querySelectorAll<HTMLElement>('.event-status[data-date]').forEach((el) => {
+        if (new Date(`${el.dataset.date}T23:59:59`) < new Date()) el.remove();
+    });
+
     // Slides (pdf.js renders on every device, unlike a PDF in an iframe) / video viewer
     const viewer = document.querySelector<HTMLDialogElement>('#viewer')!;
     const frame = viewer.querySelector('iframe')!;

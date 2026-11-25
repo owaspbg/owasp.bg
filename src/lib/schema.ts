@@ -57,7 +57,7 @@ export const breadcrumbs = (items: [string, string][]) => ({
 });
 
 export function eventSchema(e: Event, cover?: string) {
-  const { date, location, meetup, recording, sessions } = e.data;
+  const { date, location, meetup, registration, recording, sessions, partners } = e.data;
   const times = program(e).map((p) => p.time).filter(Boolean) as string[];
   const tz = sofiaOffset(e.id);
   const at = (t: string) => `${e.id}T${t}:00${tz}`;
@@ -83,21 +83,23 @@ export function eventSchema(e: Event, cover?: string) {
     ...(cover && { image: [abs(cover)] }),
     inLanguage: 'bg',
     isAccessibleForFree: true,
-    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: meetup ?? url, validFrom: e.id },
-    organizer: { '@id': ORG_ID },
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: registration ?? meetup ?? url },
+    organizer: partners.length
+      ? [{ '@id': ORG_ID }, ...partners.map((p) => ({ '@type': 'Organization', name: p.name, ...(p.url && { url: p.url }) }))]
+      : { '@id': ORG_ID },
     ...(e.data.hosts.length > 0 && { sponsor: e.data.hosts.map((h) => ({ '@type': 'Organization', name: h.name, ...(h.url && { url: h.url }) })) }),
-    performer: sessions.map((s) => ({
+    ...(sessions.length > 0 && { performer: sessions.map((s) => ({
       '@type': s.speaker.includes('&') ? 'Organization' : 'Person',
       name: s.speaker,
       ...(s.speakerUrl && { sameAs: s.speakerUrl }),
       ...(s.company && { affiliation: { '@type': 'Organization', name: s.company, ...(s.companyUrl && { url: s.companyUrl }) } }),
-    })),
+    })) }),
     ...(recording && { recordedIn: { '@type': 'VideoObject', name: `Запис: ${e.title}`, embedUrl: recording, uploadDate: e.id, thumbnailUrl: cover ? abs(cover) : abs(SITE.image), description: eventDescription(e) } }),
-    subjectOf: sessions.filter((s) => s.slides).map((s) => ({
+    ...(sessions.some((s) => s.slides) && { subjectOf: sessions.filter((s) => s.slides).map((s) => ({
       '@type': 'PresentationDigitalDocument',
       name: s.title,
       author: { '@type': 'Person', name: s.speaker },
       url: abs(fileUrl(s.slides!)),
-    })),
+    })) }),
   };
 }

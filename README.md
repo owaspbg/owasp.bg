@@ -46,7 +46,11 @@ locationUrl: "https://maps.app.goo.gl/..."   # optional, makes the location a ma
 hosts:   # optional, the company/venue hosting the event
   - name: "Progress"
     url: "https://www.progress.com/"
+partners:   # optional, communities co-organizing the event ("Съвместно с …")
+  - name: "AI Engineer Foundation Europe"
+    url: "https://www.aie.foundation/"
 meetup: "https://www.meetup.com/owasp-sofia-chapter/events/..."   # optional
+registration: "https://luma.com/..."   # optional, main "Регистрация" button while the event is upcoming
 recording: "https://youtu.be/..."   # optional, one video for the whole event (embedded on the page)
 agenda:   # optional, non-talk slots; shown with the talks, ordered by time
   - time: "19:00"
@@ -72,6 +76,7 @@ Short overview of the event (Markdown), shown above the program.
 
 - The page URL is named like the Meetup event: `2026-04-30` → `/april-2026-meetup/`. If a month has two events, the day is added (`/july-21-2021-meetup/`). Set `slug:` to override; the build fails on duplicates.
 - The cover is the Meetup event banner, saved as `cover.jpg` in the event folder.
+- **Upcoming events**: add the folder as soon as the meetup is announced, even without `sessions`. Until the day passes it is shown as "Следваща среща" in the home hero (the main button links to its page), under "Предстоящи" on /events/, with registration buttons (Luma, Meetup) and a "Лекторите предстои да бъдат обявени" note in place of talks. Add `sessions` when the speakers are known; after the event add `recording`, slides and `gallery/`.
 
 - PDF slides open in an in-page viewer (pdf.js, works on phones) and can be downloaded.
 - YouTube links (incl. `t=` start time) and Google Drive links are embedded; other links open in a new tab.

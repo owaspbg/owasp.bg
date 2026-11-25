@@ -17,7 +17,8 @@ const hasVideo = !!recording || sessions.some((s) => s.video);
         <h3>{event.title}</h3>
         <ul class="event-talks">{sessions.slice(0, 3).map((s) => <li>{s.title} <span>— {s.speaker}</span></li>)}</ul>
         <div class="event-badges">
-            <span class="badge">{sessions.length} {sessions.length === 1 ? 'лекция' : 'лекции'}</span>
+            {event.upcoming && <span class="badge badge-upcoming">Предстои</span>}
+            {sessions.length > 0 && <span class="badge">{sessions.length} {sessions.length === 1 ? 'лекция' : 'лекции'}</span>}
             {hasVideo && <span class="badge badge-video">Видео</span>}
             {event.gallery.length > 0 && <span class="badge badge-slides">{event.gallery.length} снимки</span>}
         </div>
