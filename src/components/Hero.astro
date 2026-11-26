@@ -9,7 +9,9 @@ const last = events[0];
 const talks = events.reduce((n, e) => n + e.data.sessions.length, 0);
 const speakers = new Set(events.flatMap((e) => e.data.sessions.map((s) => s.speaker))).size;
 const years = new Date().getFullYear() - Math.min(...events.map((e) => e.data.date.getUTCFullYear()));
-const upcoming = last.data.date.getTime() + 86_400_000 > Date.now();
+const upcoming = last.upcoming;
+// Point the main button at our own page for the next meetup; fall back to Meetup's upcoming list
+const next = upcoming ? eventUrl(last) : `${SITE.links.meetup}events/?type=upcoming`;
 ---
 <section class="hero">
     <div class="hero-copy">
@@ -20,7 +22,7 @@ const upcoming = last.data.date.getTime() + 86_400_000 > Date.now();
             за сигурност на софтуера. Безплатни срещи, практични презентации и отворено сътрудничество.
         </p>
         <div class="hero-buttons">
-            <a href={`${SITE.links.meetup}events/?type=upcoming`} target="_blank" rel="noopener" class="btn btn-primary">
+            <a href={next} {...(!upcoming && { target: '_blank', rel: 'noopener' })} class="btn btn-primary">
                 <svg><use href="#icon-calendar"/></svg>Следваща среща
             </a>
             <a href="/events/" class="btn btn-ghost"><svg><use href="#icon-archive"/></svg>Минали срещи</a>

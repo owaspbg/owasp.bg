@@ -12,20 +12,25 @@ const link = (text: string, url?: string) => (url ? `[${text}](${url})` : text);
 export function eventLine(e: Event): string {
   const where = e.data.location ? `, ${e.data.location}` : '';
   const talks = e.data.sessions.map((s) => `"${s.title}" (${s.speaker})`).join('; ');
-  return `- [${e.title}](${abs(eventUrl(e))}): ${dateEn(e.data.date)}${where}. Talks: ${talks}`;
+  const what = talks ? `Talks: ${talks}` : 'Speakers to be announced.';
+  const reg = e.upcoming && (e.data.registration ?? e.data.meetup) ? ` Free registration: ${e.data.registration ?? e.data.meetup}` : '';
+  return `- [${e.title}](${abs(eventUrl(e))}): ${e.upcoming ? 'UPCOMING, ' : ''}${dateEn(e.data.date)}${where}. ${what}${reg}`;
 }
 
 /** Full markdown for one event. */
 export function eventMarkdown(e: Event): string {
-  const { location, locationUrl, hosts, meetup, recording } = e.data;
+  const { location, locationUrl, hosts, partners, meetup, registration, recording } = e.data;
   const out = [`# ${e.title}`, '', `> ${eventDescription(e)}`, ''];
-  out.push(`- Date: ${dateEn(e.data.date)}`);
+  out.push(`- Date: ${dateEn(e.data.date)}${e.upcoming ? ' (upcoming)' : ''}`);
   if (location) out.push(`- Venue: ${link(location, locationUrl)}${isOnline(e) ? '' : ', Sofia, Bulgaria'}`);
   if (hosts.length) out.push(`- Hosted by: ${hosts.map((h) => link(h.name, h.url)).join(', ')}`);
+  if (partners.length) out.push(`- Co-organized with: ${partners.map((h) => link(h.name, h.url)).join(', ')}`);
   out.push(`- Organizer: ${link(SITE.name, SITE.url)} (OWASP Foundation chapter)`, '- Entry: free; talks in Bulgarian');
+  if (registration) out.push(`- Registration: ${registration}`);
   if (meetup) out.push(`- Meetup: ${meetup}`);
   if (recording) out.push(`- Recording: ${recording}`);
   out.push(`- Page: ${abs(eventUrl(e))}`, '', '## Program', '');
+  if (!e.data.sessions.length) out.push('Speakers to be announced.', '');
   for (const p of program(e)) {
     const time = p.time ? `${p.time} — ` : '';
     const who = p.speaker ? ` — ${link(p.speaker, p.speakerUrl)}${p.company ? ` @ ${link(p.company, p.companyUrl)}` : ''}` : '';

@@ -381,6 +381,7 @@ section { padding: clamp(64px, 8vw, 110px) 0; position: relative; }
 }
 .badge-video { background: rgba(35, 216, 255, 0.15); color: var(--cyan); border-color: rgba(35, 216, 255, 0.35); }
 .badge-video:hover { background: rgba(35, 216, 255, 0.25); opacity: 1; }
+.badge-upcoming { background: rgba(35, 216, 255, 0.15); color: var(--cyan); border-color: rgba(35, 216, 255, 0.45); }
 .badge-slides { background: rgba(255, 45, 214, 0.15); color: var(--pink); border-color: rgba(255, 45, 214, 0.35); }
 .badge-slides:hover { background: rgba(255, 45, 214, 0.25); opacity: 1; }
 
@@ -945,9 +946,21 @@ nav.primary a[aria-current="page"] { background: rgba(255, 255, 255, 0.12); }
 .event-meta svg { flex: none; align-self: center; fill: currentColor; }
 .event-meta a { color: var(--cyan); }
 .event-jump { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.event-status {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    padding: 5px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--cyan); background: rgba(35, 216, 255, 0.12); border: 1px solid rgba(35, 216, 255, 0.35);
+}
+.page-hero p.event-status { color: var(--cyan); font-size: 0.78rem; line-height: 1.4; }
+.program-tba { margin-bottom: 16px; padding: 22px 24px; color: var(--text-muted); line-height: 1.7; }
+.program-tba strong { display: block; color: #fff; margin-bottom: 4px; }
 .event-page { padding-bottom: 80px; }
 .event-description:not(:empty) { max-width: 760px; color: var(--text-muted); font-size: 1.05rem; padding-top: 32px; }
 .event-description p + p { margin-top: 12px; }
+.event-description a { color: var(--cyan); }
+.event-description a:hover { color: var(--pink); }
+.event-description ul { margin: 8px 0 14px; padding-left: 1.3em; display: grid; gap: 4px; }
+.event-description ul + p, .event-description p + ul { margin-top: 10px; }
 .event-section { padding: 40px 0 0; scroll-margin-top: 80px; }
 .event-section .section-title { font-size: clamp(26px, 3vw, 38px); margin-bottom: 22px; }
 .sessions { list-style: none; display: grid; gap: 16px; }

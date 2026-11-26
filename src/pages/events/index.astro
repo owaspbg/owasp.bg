@@ -10,7 +10,10 @@ const schema = [
   breadcrumbs([['Начало', '/'], ['Събития', '/events/']]),
   { '@type': 'ItemList', name: 'Срещи на OWASP Sofia', itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(eventUrl(e)), name: e.title })) },
 ];
-const years = [...new Set(events.map((e) => e.data.date.getUTCFullYear()))];
+const upcoming = events.filter((e) => e.upcoming).reverse(); // soonest first
+const past = events.filter((e) => !e.upcoming);
+const years = [...new Set(past.map((e) => e.data.date.getUTCFullYear()))];
+const next = upcoming[0];
 ---
 <Base title="Събития" description="Всички срещи на OWASP Sofia от 2019 г. насам — програма по часове, лектори, презентации, записи и снимки от всяка среща." schema={schema}>
     <section class="page-hero">
@@ -19,17 +22,26 @@ const years = [...new Set(events.map((e) => e.data.date.getUTCFullYear()))];
             <h1>Срещи и архив</h1>
             <p>Всяка среща има собствена страница с програма, лектори, презентации, запис и снимки.</p>
             <nav class="year-nav" aria-label="Години">
+                {upcoming.length > 0 && <a href="#upcoming">Предстоящи</a>}
                 {years.map((y) => <a href={`#y${y}`}>{y}</a>)}
-                <a href="https://www.meetup.com/owasp-sofia-chapter/events/?type=upcoming" target="_blank" rel="noopener" class="btn btn-primary">Следващо събитие →</a>
+                {next
+                    ? <a href={eventUrl(next)} class="btn btn-primary">Следваща среща →</a>
+                    : <a href="https://www.meetup.com/owasp-sofia-chapter/events/?type=upcoming" target="_blank" rel="noopener" class="btn btn-primary">Следващо събитие →</a>}
             </nav>
         </div>
     </section>
     <div class="container">
+        {upcoming.length > 0 && (
+            <section class="year-group" id="upcoming">
+                <h2 class="year-title">Предстоящи</h2>
+                <div class="events-grid">{upcoming.map((e) => <EventCard event={e} />)}</div>
+            </section>
+        )}
         {years.map((y) => (
             <section class="year-group" id={`y${y}`}>
                 <h2 class="year-title">{y}</h2>
                 <div class="events-grid">
-                    {events.filter((e) => e.data.date.getUTCFullYear() === y).map((e) => <EventCard event={e} />)}
+                    {past.filter((e) => e.data.date.getUTCFullYear() === y).map((e) => <EventCard event={e} />)}
                 </div>
             </section>
         ))}

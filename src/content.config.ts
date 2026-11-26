@@ -15,7 +15,9 @@ const events = defineCollection({
     location: z.string().optional(),
     locationUrl: z.url().optional(),
     hosts: z.array(org).default([]),
+    partners: z.array(org).default([]), // co-organizing communities
     meetup: z.url().optional(),
+    registration: z.url().optional(), // e.g. Luma; shown as the main button while the event is upcoming
     recording: z.url().optional(),
     // Non-talk slots of the program (opening, host intro, Q&A, closing); merged with sessions by time
     agenda: z.array(z.object({

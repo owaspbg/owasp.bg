@@ -13,12 +13,15 @@ type Data = CollectionEntry<'events'>['data'];
 export type Session = Data['sessions'][number];
 export type AgendaItem = Data['agenda'][number];
 export type ProgramItem = ({ kind: 'talk'; n: number } & Session) | ({ kind: 'slot' } & AgendaItem);
-export type Event = CollectionEntry<'events'> & { title: string; slug: string; gallery: ImageMetadata[]; cover?: ImageMetadata };
+export type Event = CollectionEntry<'events'> & { title: string; slug: string; upcoming: boolean; gallery: ImageMetadata[]; cover?: ImageMetadata };
 
 export const formatDate = (d: Date) =>
   d.toLocaleDateString('bg-BG', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 export const eventUrl = (e: Event) => `/${e.slug}/`;
+
+/** Not over yet at build time (the event day still counts). Pages that can go stale also re-check in the browser. */
+export const isUpcoming = (date: Date, now = Date.now()) => date.getTime() + 86_400_000 > now;
 
 /** Talks and agenda slots in one list, ordered by start time (talks without a time keep their order). */
 export function program({ data }: Event): ProgramItem[] {
@@ -41,6 +44,7 @@ export async function getEvents(): Promise<Event[]> {
         ...e,
         title: e.data.title ?? `OWASP Sofia Meetup · ${e.data.date.toLocaleDateString('bg-BG', { month: 'long', year: 'numeric', timeZone: 'UTC' }).replace(' г.', '')}`,
         slug: e.data.slug ?? eventSlug(e.data.date, perMonth.get(e.id.slice(0, 7))! > 1),
+        upcoming: isUpcoming(e.data.date),
         gallery,
         cover: pick(covers, e.id)[0] ?? gallery[0],
       };
